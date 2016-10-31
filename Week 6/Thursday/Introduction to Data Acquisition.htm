@@ -1,0 +1,808 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+<link rel="canonical" href="http://zone.ni.com/devzone/cda/tut/p/id/3536">
+<title>Introduction to Data Acquisition - Developer Zone - National Instruments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<meta name="DCSext.DocType" content="NI_Supported"> 
+<meta name="Date" scheme="iso8601" content="2006-08-31T05:00:00">
+<meta name="UpdateDate" scheme="iso8601" content="2011-09-30T20:45:40">
+
+
+	
+	
+	
+
+
+
+<meta name="NiBoosts" content="UD:2011-09-30,RV:4.26,RN:198">
+<meta name="nigen16" content="4.26"> <!-- Rating -->
+
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d9f12be33ab9b64"></script>
+<link rel="stylesheet" type="text/css" href="/widgets/share/addthis/1.0/css/share.css" />
+<script src="/widgets/share/addthis/1.0/js/share.js" type="text/javascript" charset="utf-8"></script>
+
+<meta name="ContentClass" content="Technical">
+<meta name="ContentType" content="Tutorial">
+<meta name="Language" scheme="rfc3066" content="en">
+<meta name="Keywords" content="introduction, fundamentals, data acquisition, signal conditioning, analog input, signal, transducer, sensor">
+<meta name="ShortTitle" content="Introduction to Data Acquisition">
+<meta name="DocType" content="NI_Supported">
+<meta name="ProductCategories" content="3478">
+<meta name="Description" content="This tutorial is part of the National Instruments Measurement Fundamentals series. Each tutorial in this series teaches you a specific topic of common measurement applications by e...">
+
+<meta name="ContentFormat" content="VCM"> 
+<meta name="vcmGuid" content="021afe697866d010VgnVCM100000940aa482RCRD">
+
+<meta name="section" content="DevZone"> 
+<meta name="nigen1" content=""> <!-- industry -->
+<meta name="nigen2" content="">  <!-- application -->
+<meta name="nigen3" content=""> <!-- developmentTopic -->
+<meta name="nigen4" content=""> <!-- Technology -->
+<meta name="nigen5" content=""> <!-- Hardware Family -->
+<meta name="nigen6" content=""> <!-- Application Software -->
+<meta name="nigen10" content="3478"> <!-- All Product categories (For Tutorials it nigen10 =  ProductCategories  -->
+<meta name="nigen17" content=""> <!-- Download link -->
+	
+<meta name="nigen23" content="Tutorial"> <!-- Format classification -->
+
+
+<!-- JavaScript used in includeLanguageMenu.jsp & includeWarningBox. -->
+        <script language="javascript">
+            function changeLocale(locale) {
+                if(locale == '') return false;
+                if(locale == 'globalGateway') {
+					
+						location.href='http://sine.ni.com/nigwy/cds/globalgateway/p/lang/en?rtrn=http://zone.ni.com/devzone/cda/tut/p/id/3536';
+					
+                } else {
+                    location.href='http://sine.ni.com/nigwy/cds/setlocale?locale=' + locale + '&rtrn=http://zone.ni.com/devzone/cda/tut/p/id/3536';
+                }
+            }
+        </script>
+        
+        <!-- JavaScript used by language select dropdown control -->
+        <script>
+			function languageChanged(langSelect)
+			{					
+				var url = langSelect.value;
+				if (url && url != "")
+				{
+					window.location = url;
+				}
+			}
+		</script>
+
+<script type="text/javascript" src="http://www.ni.com/javascript/global/neutral/jquery.js"></script>
+<script src="/javascript/devzone_enlink/enlinkment.js"></script>
+<link href="/css/devzone_enlink/enlinkment.css" type="text/css" rel="stylesheet" >
+
+		
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/global/us/zone.css" media="screen, projection">
+<link rel="stylesheet" type="text/css" href="/css/global/us/zoneprint.css" media="print">
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<script language="javascript" type="text/javascript" src="/javascript/global/resistance_is_futile.js"></script>
+</head>
+<body>
+
+<a name="top"></a>
+<div id="wrapper">
+	<a href="http://www.ni.com/"><img src="/images/global/us/logo.gif" width="157" height="64" border="0" alt="NI Home" id="logo"></a>
+
+
+
+
+
+
+
+
+
+
+     <div id="search" class="noindex">
+          <!--NOTES_FORM_TAG1-->
+          <form name="search" action="http://search.ni.com/nisearch/app/main"><a href="http://sine.ni.com/apps/utf8/nios.store?action=view_cart" rel="nofollow"><img src="/images/global/neutral/cart.gif" alt="Cart" border="0"> Cart</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.ni.com/help/">Help</a>&nbsp;&nbsp; <input type="text" name="q" size="16" maxlength="254" value="Search" onclick="this.value='';" class="mainsearchinputbox">&nbsp;<input type="image" src="/images/global/neutral/cta_arrow.gif" class="topalign"></form>
+          <!--NOTES_FORM_TAG2-->
+     </div>
+
+
+
+
+
+	<div class="noindex">
+	<map name="globalnav"> 
+	<area shape="rect" alt="Academic" coords="557,0,627,20" href="http://www.ni.com/academic/"> 
+	<area shape="rect" alt="Company" coords="684,0,751,20" href="http://www.ni.com/company/"> 
+	<area shape="rect" alt="Events" coords="629,0,682,20" href="http://www.ni.com/events/"> 
+	<area shape="rect" alt="NI Developer Zone" coords="441,0,555,20" href="http://zone.ni.com/"> 
+	<area shape="rect" alt="Support" coords="378,0,439,20" href="http://www.ni.com/support/"> 
+	<area shape="rect" alt="Solutions" coords="307,0,376,20" href="http://www.ni.com/solutions/"> 
+	<area shape="rect" alt="Products & Services" coords="180,0,305,20" href="http://www.ni.com/products/"> 
+	<area shape="rect" alt="Contact NI" coords="91,0,179,20" href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow"> 
+	<area shape="rect" alt="MyNI" coords="0,0,90,20" href="http://my.ni.com/myni/myni" rel="nofollow"> 
+	</map>
+	</div>
+<script language="javascript" type="text/javascript" charset="utf-8" src="/javascript/global/neutral/headerWidget.js"></script>
+	<div id="headerWidgetOutput" class="noindex">
+		<script type="text/javascript" charset="utf-8" src="https://tesla.ni.com/niwcf/ss?w=-1199731387&pfx=headerWidget"></script>    
+	</div>
+	<div id="sitenavigation" class="noindex"><img src="/images/buttons/us/devzone1_on.gif" width="752" height="20" border="0" alt="" usemap="#globalnav" /></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="noindex">
+<div id="identity">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tr valign="middle">
+		  <td id="devzone"><a href="http://zone.ni.com/"><img src="/images/devzone/us/headers/logo.gif" width="180" height="25" alt="" border="0"></a></td>
+			<td id="whatsit"><a href="http://zone.ni.com/devzone/cda/tut/p/id/3802">What is Developer Zone?</a></td>
+			<td id="locale">
+        <!-- Begin Language Dropdown -->
+
+        <div id="localeselector">        <a href="" onClick="changeLocale('globalGateway');return false;"><strong>Select Your Country</strong></a></div>
+</td>
+	  </tr>
+	</table>
+</div>
+</div>
+
+
+
+	<div id="bodycontainer" class="document">
+
+		<div id="resources">
+<div class="noindex">
+			<div class="docbox">
+				<p>
+				<strong>Document Type</strong>: <a href="http://search.ni.com/nisearch/app/main/p/lang/en/pg/1/ap/tech/sn/catnav:tu,ssnav:dzn">Tutorial </a><br />
+				<strong>NI Supported</strong>: Yes <br />
+				
+				<strong>Publish Date</strong>: Sep 30, 2011 <br />
+												
+				</p>
+			</div>
+			<div id="flakes">
+			
+	            <div class="docbox">
+					<div class="social-share-wrapper">
+						<div class="addthis_toolbox addthis_default_style socialMedia-toolbar">
+							<a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=ra-4d9f12be33ab9b64" class="addthis_button_compact"></a>		
+							<a class="addthis_button_facebook"></a>
+							<a class="addthis_button_twitter"></a>
+							<a class="addthis_button_linkedin"></a>
+						</div>
+					</div>		
+				</div>
+				<br />
+	            
+					
+					
+					
+					
+					
+				
+
+
+
+
+
+				<h3>Feedback</h3>
+				<div class="docbox">
+					<form action="http://zone.ni.com/apps/utf8/nidz_ratings.submit_rating" method="GET" name="suppfeed">
+     					<input type="hidden" name="p_guid" value="021afe697866d010VgnVCM100000940aa482RCRD">
+				    <input type="hidden" name="p_url" value="http://zone.ni.com/devzone/cda/tut/p/id/3536?submitted=yes">
+			     <input type="hidden" name="p_rating_type" value="TUT">
+
+					<label>Rate this document</label>
+					<select name="p_rank">
+					<option value="" selected>Select a Rating</option>
+					<option value="1">1- Poor</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5- Excellent</option>
+					</select>
+					<br />
+					<label>Answered Your Question?</label>
+					<input type="radio" name="p_answer" value="yes"> Yes <input type="radio" name="p_answer" value="no"> No<br />
+					<br />
+<a href="javascript:document.forms.suppfeed.submit()"><img src="/images/buttons/us/submit.gif" border="0"></a>
+					</form>
+				</div>
+
+								
+
+				
+				<h2>Related Categories</h2>
+				<div class="fnavbox">
+					
+					<p><strong>Products</strong></p>
+					<ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478,ssnav:dzn">Data Acquisition</a><ul></ul></li></ul>			
+					
+								
+								
+					
+					
+				</div>
+				
+
+                	
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Developer Zone</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://zone.ni.com/devzone/cda/tut/p/id/3768'>PCI Express and PXI Express Bandwidth Demos</a></li><br/><li><a href='http://zone.ni.com/devzone/cda/tut/p/id/10182'>What's New in NI-DAQmx 9.0</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+
+                
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Products and Services</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://sine.ni.com/nips/cds/view/p/lang/en/nid/203007'>NI PXIe-PCIe8371, NI PXIe-PCIe8372</a></li><br/><li><a href='http://www.ni.com/highspeeddigitalio/pciexpress.htm'>PCI Express and PXI Express Selectable Voltage Digital I/O</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+</div>
+
+		<div id="primarycontentcontainer">
+<div class="noindex">	
+			
+			<h1>Introduction to Data Acquisition</h1>
+		
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">198 ratings | <strong>4.26</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/3536">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/12573">Chinese (Simplified)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/6229">Chinese (Traditional)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10050">French</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10258">German</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10651">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/5746">Korean</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+			
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/3536&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+					
+				
+			</div>			
+</div>
+			<div id="pagearea">
+
+			
+		<div class="noindex">	<h3>Overview</h3></div>
+			<p>This tutorial is part of the National Instruments Measurement Fundamentals series. Each tutorial in this series teaches you a specific topic of common measurement applications by explaining the theory and giving practical examples. This tutorial gives an introduction to the basic elements of a computer-based data acquisition system.
+<br><br>
+
+For the complete list of tutorials, return to the <a href="http://zone.ni.com/devzone/cda/tut/p/id/4523">NI Measurement Fundamentals main page</a>.</p>
+			
+
+<div class="noindex">
+			<h3>Table of Contents</h3><ol><li><a href="#toc0">Introduction</a></li><li><a href="#toc1">&#160;Transducers</a></li><li><a href="#toc2">&#160;Signals</a></li><li><a href="#toc3">&#160;Signal Conditioning</a></li><li><a href="#toc4">&#160;Data Acquisition Hardware</a></li><li><a href="#toc5">&#160;Driver and Application Software</a></li><li><a href="#toc6">&#160;Relevant NI Products</a></li></ol>
+</div>
+
+				
+				<a name = "toc0"></a><h2>Introduction</h2>
+
+<p><br />
+Data acquisition involves gathering signals from measurement sources and digitizing the signals for storage, analysis, and presentation on a PC. Data acquisition systems come in many different PC technology forms to offer flexibility when choosing your system. You can choose from PCI, PXI, PCI Express, PXI Express, PCMCIA, USB, wireless, and Ethernet data acquisition for test, measurement, and automation applications. Consider the following five components when building a basic data acquisition system (Figure 1):<br />
+• Transducers and sensors<br />
+• Signals<br />
+• Signal conditioning<br />
+• DAQ hardware<br />
+• Driver and application software<br />
+</p>
+
+<div align="center"><img alt="" src="/cms/images/devzone/tut/aaqvwioe54523.jpg" width="328" height="265" /><br />
+<b>Figure 1. Data Acquisition System</b><br />
+</div>
+
+<p><br />
+</p>
+
+<a name = "toc1"></a><h2>&#160;</a>Transducers</h2>
+
+<p><br />
+<br />
+Data acquisition begins with the physical phenomenon to be measured. This physical phenomenon could be the temperature of a room, the intensity of a light source, the pressure inside a chamber, the force applied to an object, or many other things. An effective data acquisition system can measure all of these different phenomena.<br />
+<br />
+A transducer is a device that converts a physical phenomenon into a measurable electrical signal, such as voltage or current. The ability of a data acquisition system to measure different phenomena depends on the transducers to convert the physical phenomena into signals measurable by the data acquisition hardware. Transducers are synonymous with sensors in data acquisition systems. There are specific transducers for many different applications, such as measuring temperature, pressure, or fluid flow. Table 1 shows a short list of some common phenomena and the transducers used to measure them.<br />
+<br />
+</p>
+
+<div align="center">
+<table cellspacing="0" cellpadding="0" width="495" border="1"><TBODY>
+<tr>
+<td valign="top" width="233"><b>Phenomenon</b></td>
+<td valign="top" width="260"><b>Transducer</b></td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Temperature</td>
+<td valign="top" width="260">Thermocouple, RTD, Thermistor</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Light</td>
+<td valign="top" width="260">Photo Sensor</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Sound</td>
+<td valign="top" width="260">Microphone</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Force and Pressure</td>
+<td valign="top" width="260">
+<p>Strain Gage</p>
+
+<p>Piezoelectric Transducer</p>
+</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Position and Displacement</td>
+<td valign="top" width="260">Potentiometer, LVDT, Optical Encoder</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">Acceleration</td>
+<td valign="top" width="260">Accelerometer</td>
+</tr>
+
+<tr>
+<td valign="top" width="233">pH</td>
+<td valign="top" width="260">pH Electrode</td>
+</tr>
+
+</TBODY></table>
+
+<br />
+<b>Table 1. Phenomena and Existing Transducers</b><br />
+</div>
+
+<p><br />
+Different transducers have different requirements for converting phenomena into a measurable signal. Some transducers may require excitation in the form of voltage or current. Other transducers may require additional components and even resistive networks to produce a signal. Refer to <a href="http://www.ni.com/sensors"><u>ni.com/sensors</u></a> for more information on transducers.</p>
+
+<a name = "toc2"></a><h2>&#160;</a>Signals</h2>
+
+<p><br />
+The appropriate transducers convert physical phenomena into measurable signals. However, different signals need to be measured in different ways. For this reason, it is important to understand the different types of signals and their corresponding attributes. Signals can be categorized into two groups:<br />
+<br />
+· Analog<br />
+· Digital<br />
+<br />
+<br />
+<b>Analog Signals</b><br />
+<br />
+An analog signal can exist at any value with respect to time. A few examples of analog signals include voltage, temperature, pressure, sound, and load. The three primary characteristics of an analog signal are level, shape, and frequency (Figure 2).<br />
+<br />
+</p>
+
+<div align="center"></div>
+
+<div align="center">&#160;</div>
+
+<div align="center"><img alt="http:/vcm.natinst.com:27110/cms/images/devzone/tut/a/021afe6996.gif" src="/cms/images/devzone/tut/clip_image001_20080722134950.gif" width="434" height="252" /><br />
+<b>Figure 2. Primary Characteristics of an Analog Signal</b></div>
+
+<p><br />
+<i>Level</i><br />
+Because analog signals can take on any value, the level gives vital information about the measured analog signal. The intensity of a light source, the temperature in a room, and the pressure inside a chamber are all examples that demonstrate the importance of the level of a signal. When you measure the level of a signal, the signal generally does not change quickly with respect to time. The accuracy of the measurement, however, is very important. You should choose a data acquisition system that yields maximum accuracy to help with analog level measurements.<br />
+<br />
+<i>Shape</i><br />
+Some signals are named after their specific shapes - sine, square, sawtooth, and triangle. The shape of an analog signal can be as important as the level because by measuring the shape of an analog signal, you can further analyze the signal, including peak values, DC values, and slope. Signals where shape is of interest generally change rapidly with respect to time, but system accuracy is still important. The analysis of heartbeats, video signals, sounds, vibrations, and circuit responses are some applications involving shape measurements.<br />
+<br />
+<i>Frequency</i><br />
+All analog signals can be categorized by their frequencies. Unlike the level or shape of the signal, you cannot directly measure frequency. You must analyze the signal using software to determine the frequency information. This analysis is usually done using an algorithm known as the <a href="http://www.ni.com/support/labview/toolkits/analysis/analy3.htm"><u>Fourier transform</u></a>.<br />
+<br />
+When frequency is the most important piece of information, you need to consider including both accuracy and acquisition speed. Although the acquisition speed for acquiring the frequency of a signal is less than the speed required for obtaining the shape of a signal, you still must acquire the signal fast enough that you do not lose the pertinent information while acquiring the analog signal. The condition that stipulates this speed is known as the <a href="http://zone.ni.com/devzone/cda/tut/p/id/4653"><u>Nyquist Sampling Theorem</u></a>. Speech analysis, telecommunication, and earthquake analysis are some examples of common applications where the frequency of the signal must be known.<br />
+<br />
+<br />
+<b>Digital Signals</b><br />
+<br />
+A digital signal cannot take on any value with respect to time. Instead, a digital signal has two possible levels: high and low. Digital signals generally conform to certain specifications that define the characteristics of the signal. They are commonly referred to as transistor-to-transistor logic (TTL). TTL specifications indicate a digital signal to be low when the level falls within 0 to 0.8 V, and the signal is high between 2 and 5 V. The useful information that you can measure from a digital signal includes the state and the rate (Figure 3).<br />
+<br />
+</p>
+
+<div align="center"><img alt="" src="/cms/images/devzone/tut/a/021afe6997.gif" width="447" height="261" /><br />
+<b>Figure 3. Primary Characteristics of a Digital Signal</b><br />
+</div>
+
+<p><br />
+<i>State</i><br />
+Digital signals cannot take on any value with respect to time. The state of a digital signal is essentially the level of the signal - on or off, high or low. Monitoring the state of a switch - open or closed - is a common application showing the importance of knowing the state of a digital signal.<br />
+<br />
+<i>Rate</i><br />
+The rate of a digital signal defines how the digital signal changes state with respect to time. An example of measuring the rate of a digital signal includes determining how fast a motor shaft spins. Unlike frequency, the rate of a digital signal measures how often a portion of a signal occurs. A software algorithm is not required to determine the rate of a signal.</p>
+
+<a name = "toc3"></a><h2>&#160;</a>Signal Conditioning</h2>
+
+<p><br />
+<br />
+Sometimes transducers generate signals too difficult or too dangerous to measure directly with a data acquisition device. For instance, when dealing with high voltages, noisy environments, extreme high and low signals, or simultaneous signal measurement, signal conditioning is essential for an effective data acquisition system. It maximizes the accuracy of a system, allows sensors to operate properly, and guarantees safety.</p>
+
+<p>It is important to select the right hardware for signal conditioning. You can choose from both modular and integrated hardware options (Figure 4) and use signal conditioning accessories in a variety of applications including the following:</p>
+
+<p>· Amplification<br />
+· Attenuation<br />
+· Isolation<br />
+· Bridge completion<br />
+· Simultaneous sampling<br />
+· Sensor excitation<br />
+· Multiplexing</p>
+
+<p align="left">For more detailed information on these types of signal conditioning, visit <a href="http://zone.ni.com/devzone/cda/tut/p/id/4084">Signal Conditioning Fundamentals for Computer-Based Data Acquisition Systems</a>.<br />
+</p>
+
+<p>Other important criteria to consider with signal conditioning include packaging (modular versus integrated), performance, I/O count, advanced features, and cost. Use online tools at <a href="http://www.ni.com/signalconditioning"><u>ni.com/signalconditioning</u></a> to configure the best signal conditioning solution for your application.&#160;</p>
+
+<div align="center"><a href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/nraivqtq54525.jpg&language=en','awindow','scrollbars=yes, resizable=yes');return false;"><img src="/cms/images/devzone/tut/nraivqtq54525.jpg" width="525" border="0"></a><br><a class="enlarge_link" href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/nraivqtq54525.jpg&language=en','awindow','scrollbars=yes,resizable=yes');return false;">[+] Enlarge Image</a></div>
+
+<p align="center"><b>Figure 4. Signal Conditioning Hardware Options</b></p>
+
+<p align="center">&#160;</p>
+
+<a name = "toc4"></a><h2>&#160;</a>Data Acquisition Hardware</h2>
+
+<p><br />
+Data acquisition hardware acts as the interface between the computer and the outside world. It primarily functions as a device that digitizes incoming analog signals so that the computer can interpret them. Other data acquisition functionality includes the following:<br />
+<br />
+· <a href="http://zone.ni.com/devzone/cda/tut/p/id/3218"><u>Analog input/output</u></a><br />
+· <a href="http://zone.ni.com/devzone/cda/tut/p/id/3218"><u>Digital input/output</u></a><br />
+· <a href="http://zone.ni.com/devzone/cda/tut/p/id/3218"><u>Counter/timers</u></a><br />
+· <a href="http://www.ni.com/dataacquisition/multifunction/"><u>Multifunction</u></a> - a combination of analog, digital, and counter operations on a single device</p>
+
+<p>National Instruments offers several hardware platforms for data acquisition. The most readily available platform is the desktop computer. NI&#160;provides PCI DAQ boards that plug into any desktop computer. In addition, NI makes DAQ modules for PXI/CompactPCI, a more rugged modular computer platform specifically for measurement and automation applications. For distributed measurements, the NI Compact FieldPoint platform delivers modular I/O, embedded operation, and Ethernet communication. For portable or handheld measurements, National Instruments DAQ devices for USB and PCMCIA work with laptops or Windows Mobile PDAs (Figure 5). In addition, National Instruments has launched DAQ devices for PCI Express, the next-generation PC I/O bus, and for PXI Express, the high-performance PXI bus.<br />
+<a href="http://www.ni.com/dataacquisition/"> </a>&#160;</p>
+
+<p align="center"><img border="0" height="360" alt="" width="480" src="/cms/images/devzone/tut/Presentation2.jpg" /></p>
+
+<p align="center"><b>Figure 5. National Instruments DAQ Hardware Options</b></p>
+
+<p align="left">The newest DAQ&#160;devices from National Instruments offer connectivity over wireless and cabled Ethernet. NI Wi-Fi DAQ devices combine IEEE 802.11g wireless or Ethernet communication, direct sensor connectivity, and the flexibility of NI LabVIEW software for remote monitoring of electrical, physical, mechanical, and acoustical signals.</p>
+
+<p align="left"><a href="http://zone.ni.com/wv/app/doc/p/id/wv-2813">View the 6-minute NI Wi-Fi DAQ Guided Tour</a>»</p>
+
+<p align="center">&#160;</p>
+
+<p align="center"><img height="225" alt="" width="250" src="/cms/images/devzone/tut/wifidaq_20080624152015.jpg" /></p>
+
+<p align="center"><b>Figure 6. Wi-Fi Data Acquisition</b></p>
+
+<div align="center"></div>
+
+<a name = "toc5"></a><h2>&#160;</a>Driver and Application Software</h2>
+
+<p><br />
+<a href="http://www.ni.com/dataacquisition/software"><b>Driver Software</b></a><br />
+<br />
+Software transforms the PC and the data acquisition hardware into a complete data acquisition, analysis, and presentation tool. Without software to control or drive the hardware, the data acquisition device does not work properly. Driver software is the layer of software for easily communicating with the hardware. It forms the middle layer between the application software and the hardware. Driver software also prevents a programmer from having to do register-level programming or complicated commands to access the hardware functions. NI offers two different software options:<br />
+<br />
+· <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/10181"><u>NI-DAQmx driver and additional measurement services software</u></a><br />
+· <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/14480"><u>NI-DAQmx Base driver software</u></a><br />
+<br />
+With the introduction of NI-DAQmx, National Instruments revolutionized data acquisition application development by greatly increasing the speed at which you can move from building a program to deploying a high-performance measurement application. The DAQ Assistant, included with NI-DAQmx, is a graphical, interactive guide for configuring, testing, and acquiring measurement data. With a single click, you can even generate code based on your configuration, making it easier and faster to develop complex operations. Because the DAQ Assistant is completely menu-driven, you make fewer programming errors and drastically decrease the time from setting up your data acquisition system to taking your first measurement.</p>
+
+<p>NI-DAQmx Base offers a subset of NI-DAQmx functionality on Windows and Linux, Mac OS X, Windows Mobile, and Windows CE.</p>
+
+<p>&#160;</p>
+
+<p><a href="http://www.ni.com/software/"><b>Application Software</b></a></p>
+
+<p>The application layer can be either a development environment in which you build a custom application that meets specific criteria, or it can be a configuration-based program with preset functionality. Application software adds analysis and presentation capabilities to driver software. To choose the right application software, evaluate the complexity of the application, the availability of configuration-based software that fits the application, and the amount of time available to develop the application. If the application is complex or there is no existing program, use a development environment.</p>
+
+<p>NI offers three development environment software products for creating complete instrumentation, acquisition, and control applications:</p>
+
+<p>· <a href="http://www.ni.com/labview/"><u>LabVIEW</u></a> with graphical programming methodology<br />
+· <a href="http://www.ni.com/cvi"><u>LabWindows™/CVI</u></a> for traditional C programmers<br />
+· <a href="http://www.ni.com/mstudio/"><u>Measurement Studio</u></a> for Visual Basic, C++, and .NET</p>
+
+<p>With <a href="http://www.ni.com/signalexpress"><u>LabVIEW SignalExpress</u></a>, NI has introduced a configuration-based software environment where programming is no longer a requirement. Using LabVIEW SignalExpress, you can make interactive measurements with NI Express technology.</p>
+
+<a name = "toc6"></a><h2>&#160;</a>Relevant NI Products</h2>
+
+<p><br />
+<br />
+Customers interested in this topic were also interested in the following NI products:<br />
+</p>
+
+<ul type="disc">
+<li><a href="http://www.ni.com/labview"><u>LabVIEW</u></a></li>
+
+<li><a href="http://www.ni.com/dataacquisition"><u>Data Acquisition</u></a></li>
+
+<li><a href="http://www.ni.com/signalconditioning"><u>Signal Conditioning</u></a></li>
+</ul>
+
+<p>For more tutorials, return to the <a href="http://zone.ni.com/devzone/cda/tut/p/id/4523"><u>NI Measurement Fundamentals main page.</u></a></p>
+
+<p>&#160;</p>
+
+<p>Linux<sup>®</sup> is the registered trademark of Linus Torvalds in the U.S. and other countries.</p>
+
+<p>The mark LabWindows is used under a license from Microsoft Corporation. Windows is a registered trademark of Microsoft Corporation in the United States and other countries.</p>
+				
+
+<div class="noindex">
+
+
+				
+
+
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">198 ratings | <strong>4.26</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/3536">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/12573">Chinese (Simplified)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/6229">Chinese (Traditional)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10050">French</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10258">German</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10651">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/5746">Korean</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/3536&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+												
+			</div>
+</div>
+
+				
+
+				
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+				
+				
+
+
+
+
+
+<h3 class="comments">Reader Comments | <a href="http://zone.ni.com/apps/utf8/nidz_display_comments.create_comment?p_title=Introduction+to+Data+Acquisition&p_doc_id=021afe697866d010VgnVCM100000940aa482RCRD&p_doc_type=TUT&p_url=http://zone.ni.com/devzone/cda/tut/p/id/3536&p_doc_url_id=3536" rel="nofollow">Submit a comment</a> <span class="cta">&raquo;</span></h3>
+<p class="comments">
+
+	<strong>Thanks..!</strong><br>I was fed up reading bookish languages..
+Now after coming across this feel like got a 
+feel of things..Thanx<br>- <em>Babul Kumar, Dept. of Instrumentation,Cochin University. </em><a href="mailto:babul2547@gmail.com">babul2547@gmail.com</a> - Apr 18, 2010
+	<br/><br/>
+	
+	<strong>Clicking problem fixed.</strong><br>Thank you for your feedback. The links 
+in the TOC are fixed.<br>- <em>Efrat Strassberg, National Instruments. </em><a href="mailto:efrat.strassberg@ni.com">efrat.strassberg@ni.com</a> - Nov 6, 2006
+	<br/><br/>
+	
+	<strong>Good information + Clicking problem</strong><br>I like the way the information has been
+presented. Easy to read and understand.
+
+However, I found that if you click on the
+links at the top of the page 'Signal' or
+'Signal Conditioning' etc, it does not take
+you that section. It takes you to the
+previous section. <br>- <em>Jayanth Sankar, Vermeer Manufacturing. </em><a href="mailto:jayanths@umich.edu">jayanths@umich.edu</a> - Nov 4, 2006
+	<br/><br/>
+	
+	Please fix this typo:
+
+"When frequency is the most important 
+piece of information, it is important to 
+consider include both accuracy and 
+acquisition speed"
+<br>- <em>Krishnaj Gourab, Marquette university. </em><a href="mailto:gourab1@gmail.com">gourab1@gmail.com</a> - Oct 8, 2006
+	<br/><br/>
+	
+	<strong>Typo Fixed</strong><br>NI-DAQmx most certainly has increased and notdecreased the speeds at which scientists andengineers can now deploy DAQ systems. Thetypo is now fixed. Thanks for the feedback.Jared AhoProduct Marketing ManagerNational Instruments<br>- <em>Jared Aho, National Instruments. </em><a href="mailto:jared.aho@ni.com">jared.aho@ni.com</a> - Sep 26, 2005
+	<br/><br/>
+	
+	<strong>Typo</strong><br>I hope "reducing the speed" in the following sentence was a typo. :) "With the introduction of NI-DAQmx, National Instruments revolutionized DAQ application development by greatly reducing the speed at which you can move from building a program to deploying a high-performance measurement application."<br>- <em>Matt Beck, Stirling Cycles. </em><a href="mailto:mattb@idealab.com">mattb@idealab.com</a> - Jul 17, 2005
+	<br/><br/>
+	
+</p>
+<div class="dottedline">&nbsp;</div>
+
+
+
+<div class="noindex">
+				
+				<div class="legalnotice"><p><strong>Legal</strong><br />This tutorial (this "tutorial") was developed by National Instruments ("NI"). Although technical support of this tutorial may be made available by National Instruments, the content in this tutorial may not be completely tested and verified, and NI does not guarantee its quality in any way or that NI will continue to support this content with each new revision of related products and drivers.  THIS TUTORIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND SUBJECT TO CERTAIN RESTRICTIONS AS MORE SPECIFICALLY SET FORTH IN NI.COM'S TERMS OF USE (<a href="http://ni.com/legal/termsofuse/unitedstates/us/" rel="nofollow">http://ni.com/legal/termsofuse/unitedstates/us/</a>).</p></div>
+				
+				
+
+			</div>	
+		</div>
+	</div>
+<div class="noindex"> <div class="clearfloat">&nbsp;</div> </div>
+	</div>
+
+<div class="noindex">
+
+
+
+
+					</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="clearfloat">&nbsp;</div>
+	</div>
+	<div id="footer" class="noindex">
+		<a href="http://www.ni.com/profile/" rel="nofollow">My Profile</a> | <a href="http://www.ni.com/rss/" rel="nofollow">RSS</a> | <a href="http://www.ni.com/legal/privacy/unitedstates/us/" rel="nofollow">Privacy</a> | <a href="http://www.ni.com/legal/" rel="nofollow">Legal</a> | <a href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow">Contact NI</a> <span class="copyright">&copy; 2011 National Instruments Corporation.  All rights reserved.</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<script language="javascript" type="text/javascript">
+var subject = "Link to National Instruments Web Site";
+var bodytext = encodeURI(window.location.href); 
+document.write('<a href=\"mailto:?subject=' + subject + '&body=' + bodytext + '\">'); 
+document.write('<img src="/images/global/us/email.gif" border="0" alt="E-Mail this Page"> E-Mail this Page</a>');
+</script>
+	</div>
+</div>
+<script language="JavaScript" src="/javascript/analysis/us/tag-footer.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
+

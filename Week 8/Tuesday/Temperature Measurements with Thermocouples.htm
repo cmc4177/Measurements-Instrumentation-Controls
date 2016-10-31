@@ -1,0 +1,843 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+<link rel="canonical" href="http://zone.ni.com/devzone/cda/tut/p/id/7108">
+<title>Temperature Measurements with Thermocouples: How-To Guide - Developer Zone - National Instruments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<meta name="DCSext.DocType" content="NI_Supported"> 
+<meta name="Date" scheme="iso8601" content="2008-04-11T13:01:59">
+<meta name="UpdateDate" scheme="iso8601" content="2011-10-10T14:28:30">
+
+
+	
+	
+	
+
+
+
+<meta name="NiBoosts" content="UD:2011-10-10,RV:3.40,RN:15">
+<meta name="nigen16" content="3.40"> <!-- Rating -->
+
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d9f12be33ab9b64"></script>
+<link rel="stylesheet" type="text/css" href="/widgets/share/addthis/1.0/css/share.css" />
+<script src="/widgets/share/addthis/1.0/js/share.js" type="text/javascript" charset="utf-8"></script>
+
+<meta name="ContentClass" content="Technical">
+<meta name="ContentType" content="Tutorial">
+<meta name="Language" scheme="rfc3066" content="en">
+<meta name="Keywords" content="how, how-to, guide, thermocouple, measurement, temperature, cDAQ, CompactDAQ, LabVIEW">
+<meta name="ShortTitle" content="Temperature Measurements with Thermocouples: How-To Guide">
+<meta name="DocType" content="NI_Supported">
+<meta name="ProductCategories" content="4805,7057,28,7056">
+<meta name="Description" content="This document is part of the “How-To Guide for Most Common Measurements” centralized resource portal. This tutorial provides a detailed guide for measurement and device considerati...">
+
+<meta name="ContentFormat" content="VCM"> 
+<meta name="vcmGuid" content="a4d2472ca8dc8110VgnVCM200000a90aa482RCRD">
+
+<meta name="section" content="DevZone"> 
+<meta name="nigen1" content=""> <!-- industry -->
+<meta name="nigen2" content="">  <!-- application -->
+<meta name="nigen3" content="AnalogIO,measurementandinstrumentation,AnalogInput"> <!-- developmentTopic -->
+<meta name="nigen4" content=""> <!-- Technology -->
+<meta name="nigen5" content=""> <!-- Hardware Family -->
+<meta name="nigen6" content=""> <!-- Application Software -->
+<meta name="nigen10" content="4805,7057,28,7056"> <!-- All Product categories (For Tutorials it nigen10 =  ProductCategories  -->
+<meta name="nigen17" content=""> <!-- Download link -->
+	
+<meta name="nigen23" content="Tutorial"> <!-- Format classification -->
+
+
+<!-- JavaScript used in includeLanguageMenu.jsp & includeWarningBox. -->
+        <script language="javascript">
+            function changeLocale(locale) {
+                if(locale == '') return false;
+                if(locale == 'globalGateway') {
+					
+						location.href='http://sine.ni.com/nigwy/cds/globalgateway/p/lang/en?rtrn=http://zone.ni.com/devzone/cda/tut/p/id/7108';
+					
+                } else {
+                    location.href='http://sine.ni.com/nigwy/cds/setlocale?locale=' + locale + '&rtrn=http://zone.ni.com/devzone/cda/tut/p/id/7108';
+                }
+            }
+        </script>
+        
+        <!-- JavaScript used by language select dropdown control -->
+        <script>
+			function languageChanged(langSelect)
+			{					
+				var url = langSelect.value;
+				if (url && url != "")
+				{
+					window.location = url;
+				}
+			}
+		</script>
+
+<script type="text/javascript" src="http://www.ni.com/javascript/global/neutral/jquery.js"></script>
+<script src="/javascript/devzone_enlink/enlinkment.js"></script>
+<link href="/css/devzone_enlink/enlinkment.css" type="text/css" rel="stylesheet" >
+
+		
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/global/us/zone.css" media="screen, projection">
+<link rel="stylesheet" type="text/css" href="/css/global/us/zoneprint.css" media="print">
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<script language="javascript" type="text/javascript" src="/javascript/global/resistance_is_futile.js"></script>
+</head>
+<body>
+
+<a name="top"></a>
+<div id="wrapper">
+	<a href="http://www.ni.com/"><img src="/images/global/us/logo.gif" width="157" height="64" border="0" alt="NI Home" id="logo"></a>
+
+
+
+
+
+
+
+
+
+
+     <div id="search" class="noindex">
+          <!--NOTES_FORM_TAG1-->
+          <form name="search" action="http://search.ni.com/nisearch/app/main"><a href="http://sine.ni.com/apps/utf8/nios.store?action=view_cart" rel="nofollow"><img src="/images/global/neutral/cart.gif" alt="Cart" border="0"> Cart</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.ni.com/help/">Help</a>&nbsp;&nbsp; <input type="text" name="q" size="16" maxlength="254" value="Search" onclick="this.value='';" class="mainsearchinputbox">&nbsp;<input type="image" src="/images/global/neutral/cta_arrow.gif" class="topalign"></form>
+          <!--NOTES_FORM_TAG2-->
+     </div>
+
+
+
+
+
+	<div class="noindex">
+	<map name="globalnav"> 
+	<area shape="rect" alt="Academic" coords="557,0,627,20" href="http://www.ni.com/academic/"> 
+	<area shape="rect" alt="Company" coords="684,0,751,20" href="http://www.ni.com/company/"> 
+	<area shape="rect" alt="Events" coords="629,0,682,20" href="http://www.ni.com/events/"> 
+	<area shape="rect" alt="NI Developer Zone" coords="441,0,555,20" href="http://zone.ni.com/"> 
+	<area shape="rect" alt="Support" coords="378,0,439,20" href="http://www.ni.com/support/"> 
+	<area shape="rect" alt="Solutions" coords="307,0,376,20" href="http://www.ni.com/solutions/"> 
+	<area shape="rect" alt="Products & Services" coords="180,0,305,20" href="http://www.ni.com/products/"> 
+	<area shape="rect" alt="Contact NI" coords="91,0,179,20" href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow"> 
+	<area shape="rect" alt="MyNI" coords="0,0,90,20" href="http://my.ni.com/myni/myni" rel="nofollow"> 
+	</map>
+	</div>
+<script language="javascript" type="text/javascript" charset="utf-8" src="/javascript/global/neutral/headerWidget.js"></script>
+	<div id="headerWidgetOutput" class="noindex">
+		<script type="text/javascript" charset="utf-8" src="https://tesla.ni.com/niwcf/ss?w=-1199731387&pfx=headerWidget"></script>    
+	</div>
+	<div id="sitenavigation" class="noindex"><img src="/images/buttons/us/devzone1_on.gif" width="752" height="20" border="0" alt="" usemap="#globalnav" /></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="noindex">
+<div id="identity">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tr valign="middle">
+		  <td id="devzone"><a href="http://zone.ni.com/"><img src="/images/devzone/us/headers/logo.gif" width="180" height="25" alt="" border="0"></a></td>
+			<td id="whatsit"><a href="http://zone.ni.com/devzone/cda/tut/p/id/3802">What is Developer Zone?</a></td>
+			<td id="locale">
+        <!-- Begin Language Dropdown -->
+
+        <div id="localeselector">        <a href="" onClick="changeLocale('globalGateway');return false;"><strong>Select Your Country</strong></a></div>
+</td>
+	  </tr>
+	</table>
+</div>
+</div>
+
+
+
+	<div id="bodycontainer" class="document">
+
+		<div id="resources">
+<div class="noindex">
+			<div class="docbox">
+				<p>
+				<strong>Document Type</strong>: <a href="http://search.ni.com/nisearch/app/main/p/lang/en/pg/1/ap/tech/sn/catnav:tu,ssnav:dzn">Tutorial </a><br />
+				<strong>NI Supported</strong>: Yes <br />
+				
+				<strong>Publish Date</strong>: Oct 10, 2011 <br />
+												
+				</p>
+			</div>
+			<div id="flakes">
+			
+	            <div class="docbox">
+					<div class="social-share-wrapper">
+						<div class="addthis_toolbox addthis_default_style socialMedia-toolbar">
+							<a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=ra-4d9f12be33ab9b64" class="addthis_button_compact"></a>		
+							<a class="addthis_button_facebook"></a>
+							<a class="addthis_button_twitter"></a>
+							<a class="addthis_button_linkedin"></a>
+						</div>
+					</div>		
+				</div>
+				<br />
+	            
+					
+					
+					
+					
+					
+				
+
+
+
+
+
+				<h3>Feedback</h3>
+				<div class="docbox">
+					<form action="http://zone.ni.com/apps/utf8/nidz_ratings.submit_rating" method="GET" name="suppfeed">
+     					<input type="hidden" name="p_guid" value="a4d2472ca8dc8110VgnVCM200000a90aa482RCRD">
+				    <input type="hidden" name="p_url" value="http://zone.ni.com/devzone/cda/tut/p/id/7108?submitted=yes">
+			     <input type="hidden" name="p_rating_type" value="TUT">
+
+					<label>Rate this document</label>
+					<select name="p_rank">
+					<option value="" selected>Select a Rating</option>
+					<option value="1">1- Poor</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5- Excellent</option>
+					</select>
+					<br />
+					<label>Answered Your Question?</label>
+					<input type="radio" name="p_answer" value="yes"> Yes <input type="radio" name="p_answer" value="no"> No<br />
+					<br />
+<a href="javascript:document.forms.suppfeed.submit()"><img src="/images/buttons/us/submit.gif" border="0"></a>
+					</form>
+				</div>
+
+								
+
+				
+				<h2>Related Categories</h2>
+				<div class="fnavbox">
+					
+					<p><strong>Products</strong></p>
+					<ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478,ssnav:dzn">Data Acquisition</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.7056,ssnav:dzn">NI CompactDAQ</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.7056.8115,ssnav:dzn">CompactDAQ Analog Input Modules</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.7056.8115.4805,ssnav:dzn">NI 9211</a><ul></ul></li></ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.7056.7057,ssnav:dzn">CompactDAQ Chassis</a><ul></ul></li></ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.2712,ssnav:dzn">Reconfigurable I/O</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.2712.4796,ssnav:dzn">CompactRIO</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.2712.4796.4885,ssnav:dzn">CompactRIO Analog Input Modules</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.2712.4796.4885.4805,ssnav:dzn">NI 9211</a><ul></ul></li></ul></li></ul></li></ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:3478.7056,ssnav:dzn">NI CompactDAQ</a><ul></ul></li></ul></li></ul><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:1,ssnav:dzn">Distributed I/O</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:1.4796,ssnav:dzn">CompactRIO</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:1.4796.4885,ssnav:dzn">CompactRIO Analog Input Modules</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:1.4796.4885.4805,ssnav:dzn">NI 9211</a><ul></ul></li></ul></li></ul></li></ul></li></ul><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:4,ssnav:dzn">Software</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:4.28,ssnav:dzn">LabVIEW</a><ul></ul></li></ul></li></ul>			
+					
+					
+					<p><strong>Development Topic</strong></p>
+					<ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n6:measurementandinstrumentation,ssnav:dzn">Measurement & Instrumentation</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n6:measurementandinstrumentation.AnalogIO,ssnav:dzn">Analog I/O</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n6:measurementandinstrumentation.AnalogIO.AnalogInput,ssnav:dzn">Analog Input</a><ul></ul></li></ul></li></ul></li></ul>
+								
+								
+					
+					
+				</div>
+				
+
+                	
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Developer Zone</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://zone.ni.com/devzone/cda/tut/p/id/4237'>Taking Thermocouple Temperature Measurements</a></li><br/><li><a href='http://zone.ni.com/devzone/cda/tut/p/id/8127'>Temperature Measurement Basics</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+
+                
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Products and Services</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://www.ni.com/temperature/temp_basics.htm'>National Instruments Temperature Measurement Tutorial</a></li><br/><li><a href='http://sine.ni.com/nips/cds/view/p/lang/en/nid/1686'>SCXI-1320</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+</div>
+
+		<div id="primarycontentcontainer">
+<div class="noindex">	
+			
+			<h1>Temperature Measurements with Thermocouples: How-To Guide</h1>
+		
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">15 ratings | <strong>3.40</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/7108">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7122">Chinese (Simplified)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7238">Chinese (Traditional)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7245">French</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7305">German</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7293">Italian</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7148">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7204">Korean</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7347">Spanish</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+			
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/7108&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+					
+				
+			</div>			
+</div>
+			<div id="pagearea">
+
+			
+		<div class="noindex">	<h3>Overview</h3></div>
+			<p>This document is part of the <a href="http://zone.ni.com/devzone/cda/tut/p/id/7136">“How-To Guide for Most Common Measurements” </a> centralized resource portal.  This tutorial provides a detailed guide for measurement and device considerations to take temperature measurements using thermocouples. </p>
+			
+
+<div class="noindex">
+			<h3>Table of Contents</h3><ol><li><a href="#toc0">Thermocouple Overview</a></li><li><a href="#toc1">How a Thermocouple Works</a></li><li><a href="#toc2">Considerations for Accurate Thermocouple Measurements</a></li><li><a href="#toc3">Connecting a Thermocouple to an Instrument</a></li><li><a href="#toc4">Getting to See Your Measurement: NI LabVIEW</a></li><li><a href="#toc5">Recommended Hardware and Software</a></li><li><a href="#toc6">Thermocouple Webcasts, Tutorials, and Other How-To Resources</a></li></ol>
+</div>
+
+				
+				<a name = "toc0"></a><h2><b>Thermocouple Overview</b></h2>
+
+<table align="center" cellspacing="0" border="0" width="100%" cellpadding="0">
+<tr>
+<td width="50%">Qualitatively, the temperature of an object is determined by the sensation of heat or cold felt by touching an object. Technically, temperature is a measure of the average kinetic energy of the particles in a sample of matter, expressed in units of degrees on a standardized scale.&#160; You can measure temperature in many different ways that vary in cost of equipment and accuracy. Thermocouples are one of the most common sensors used to measure temperature because they are relatively inexpensive yet accurate sensors that can operate over a wide range of temperatures.<br />
+</td>
+<td width="50%">
+<p align="center"><a href="http://www.ni.com/video/popup/?url=rtmp://cosine.ni.com/flvplayback/us/2008/thermocouple.flv" target="_blank"><img src="/cms/images/devzone/tut/thermocouple_20080409091737.gif" border="0" alt="" /></a></p>
+
+<p align="center"><a href="http://www.ni.com/video/popup/?url=rtmp://cosine.ni.com/flvplayback/us/2008/thermocouple.flv" target="_blank">View a 60-second video on how to take a Thermocouple Measurement</a></p>
+</td>
+</tr>
+</table>
+
+<p>The basis of thermocouples was established by Thomas Johann Seebeck in 1821 when he discovered that a conductor generates a voltage when it is subjected to a temperature gradient. Measuring this voltage requires the use of a second conductor material that generates a different voltage under the same temperature gradient. If the same material is used for the measurement, the voltage generated by the measuring conductor simply cancels that of the first conductor. The voltage difference generated by the two dissimilar materials can be measured and related to the corresponding temperature gradient. Based on Seebeck’s principle, it is clear that thermocouples can only measure temperature differences and they need a known reference temperature to yield the absolute readings.</p>
+
+<p>The Seebeck effect describes the voltage or electromotive force (EMF) induced by the temperature gradient along the wire. The change in material EMF with respect to a change in temperature is called the Seebeck coefficient or thermoelectric sensitivity. This coefficient is usually a nonlinear function of temperature.</p>
+
+<p>However, for small changes in temperature over the length of a conductor, the voltage is approximately linear, which is represented by the following equation where <img height="16" src="/cms/images/devzone/tut/poeplwxs5648064803815309573.gif" width="14" alt="" />&#160;is the change in voltage, S is the Seebeck coefficient, and <img height="16" src="/cms/images/devzone/tut/yweclhch9100706149587311225.gif" width="17" alt="" />is the change in temperature:</p>
+
+<p align="center"><img src="/cms/images/devzone/tut/eyvwqxxe3489.jpg" height="26" align="middle" width="78" alt="" />&#160;(1)</p>
+
+<p>A thermocouple is created whenever two dissimilar metals touch at one end and are measured at the other, creating a small open-circuit voltage as a function of the temperature difference between the contact point and the measurement point of the metals. The measured voltage from the thermocouple is the difference between the Seebeck voltage across each conductor, represented by the above equation. S varies with changes in temperature, which causes the output voltage of thermocouples to be nonlinear over their operating ranges.</p>
+
+<p>Several types of thermocouples are available, and different types are designated by capital letters that indicate their composition according to American National Standards Institute (ANSI) conventions. For example, a J-Type thermocouple has one iron conductor and one constantan (a copper-nickel alloy) conductor. You can see a complete list of thermocouples in Table 1.</p>
+
+<p>&#160;</p>
+
+<div align="center">
+<table border="1" cellpadding="0">
+<tr>
+<td valign="top" width="116">
+<p align="center"><b>Thermocouple</b><br />
+<b>Type</b></p>
+</td>
+<td valign="top" width="187">
+<p align="center"><b>Conductors – Positive</b></p>
+</td>
+<td valign="top" width="187">
+<p align="center"><b>Conductors – Negative</b></p>
+</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">B</p>
+</td>
+<td valign="top" width="187">Platinum-30% rhodium</td>
+<td valign="top" width="187">Platinum-6% rhodium</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">E</p>
+</td>
+<td valign="top" width="187">Nickel-chromium alloy</td>
+<td valign="top" width="187">Copper-nickel alloy</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">J</p>
+</td>
+<td valign="top" width="187">Iron</td>
+<td valign="top" width="187">Copper-nickel alloy</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">K</p>
+</td>
+<td valign="top" width="187">Nickel-chromium alloy</td>
+<td valign="top" width="187">Nickel-aluminum alloy</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">N</p>
+</td>
+<td valign="top" width="187">Nickel-chromium-silicon alloy</td>
+<td valign="top" width="187">Nickel-silicon-magnesium alloy</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">R</p>
+</td>
+<td valign="top" width="187">Platinum-13% rhodium</td>
+<td valign="top" width="187">Platinum</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">S</p>
+</td>
+<td valign="top" width="187">Platinum-10% rhodium</td>
+<td valign="top" width="187">Platinum</td>
+</tr>
+
+<tr>
+<td valign="top" width="116">
+<p align="center">T</p>
+</td>
+<td valign="top" width="187">Copper</td>
+<td valign="top" width="187">Copper-nickel alloy</td>
+</tr>
+</table>
+</div>
+
+<p align="center"><b>Table 1.</b><i> Compositions and Letter Designations of the Standardized</i></p>
+
+<a name = "toc1"></a><h2>How a Thermocouple Works</h2>
+
+<p>To measure the temperature using a thermocouple, you cannot simply connect the thermocouple to a voltmeter or other measurement system, because the voltage measured is proportional to the temperature difference between the primary junction and the junction where the voltage is being measured. Therefore, to know the absolute temperature at the thermocouple tip, the temperature where the thermocouple is connected to the measurement device must also be known.</p>
+
+<p align="center"><img height="158" src="/cms/images/devzone/tut/sikpdvjc3490.jpg" width="352" alt="" /><br />
+<i><b>Figure 1. J-Type Thermocouple</b></i></p>
+
+<p>Figure 1 illustrates a J-Type thermocouple in a candle flame that has a temperature you want to measure. The two thermocouple wires are connected to the copper leads of a data acquisition device. The circuit contains three dissimilar metal junctions: J1, J2, and J3. This results in a Seebeck voltage between J3 and J2 that is proportional to the temperature difference between J1, which is sensing the temperature of the candle flame, and J2 and J3. J2 and J3 should be close enough together so that they can be assumed to be at the same temperature. Because copper wire is connected to both J2 and J3, there is no additional voltage contributed between the temperature difference of the J2/J3 junction and the point where the voltage is measured by the data acquisition device. To determine the temperature at J1, you must know the temperatures of junctions J2 and J3. You can then use the measured voltage and the known temperature of the J2/J3 junction to infer the temperature at J1.</p>
+
+<p>Thermocouples require some form of temperature reference to compensate for the cold junctions. The most common method is to measure the temperature at the reference junction with a direct-reading temperature sensor then apply this cold-junction temperature measurement to the voltage reading to determine the temperature measured by the thermocouple. This process is called cold-junction compensation (CJC). Because the purpose of CJC is to compensate for the known temperature of the cold junction, another less-common method is forcing the junction from the thermocouple metal to copper metal to a known temperature, such as 0 ºC, by submersing the junction in an ice-bath, and then connecting the copper wire from each junction to a voltage measurement device. When using the first method, you can simplify computing CJC by taking advantage of the following thermocouple characteristics.</p>
+
+<p>By using the Thermocouple Law of Intermediate Metals and making some simple assumptions, you will find that the measured voltage depends on the thermocouple type, thermocouple voltage, and the cold-junction temperature. The measured voltage is independent of the composition of the measurement leads and the cold junctions, J2 and J3.</p>
+
+<p>According to the Thermocouple Law of Intermediate Metals, illustrated in Figure 2, inserting any type of wire into a thermocouple circuit has no influence on the output as long as both ends of that wire are the same temperature, or isothermal.<br />
+<br />
+</p>
+
+<p align="center"><img height="94" src="/cms/images/devzone/tut/ibbykils3491.jpg" width="227" alt="" /><br />
+<i><b>Figure 2. Thermocouple Law of Intermediate Metals</b></i></p>
+
+<p>The circuit in Figure 3 is similar to the previously described circuit in Figure 1, except that a short length of constantan wire is inserted just before junction J3 and the junctions are assumed to be held at identical temperatures. Assuming that junctions J3 and J4 are the same temperature, the Thermocouple Law of Intermediate Metals indicates that the circuit in Figure 3 is electrically equivalent to the circuit in Figure 1. Consequently, any result taken from the circuit in Figure 3 also applies to the circuit illustrated in Figure 1.</p>
+
+<p align="center"><img height="178" src="/cms/images/devzone/tut/dudyhtjx3492.gif" width="320" alt="" /><br />
+<i><b>Figure 3. Inserting an Extra Lead in the Isothermal Region</b></i></p>
+
+<p align="center">&#160;</p>
+
+<p>&#160;</p>
+
+<p>In Figure 3, junctions J2 and J4 are the same type (copper-constantan). Because both are in the isothermal region, J2 and J4 are also the same temperature.</p>
+
+<p>NIST thermocouple reference tables are generated with the reference junction held at 0 °C, therefore, to determine the temperature at the thermocouple junction you can start with Equation 2 shown below, where V<sub>MEAS</sub> is the voltage measured by the data acquisition device, and V<sub>TC</sub> (T<sub>TC</sub> – T<sub>ref</sub>) is the Seebeck voltage created by the difference between T<sub>TC</sub> (the temperature at the thermocouple junction) and T<sub>ref</sub> (the temperature at the reference junction):</p>
+
+<p>&#160;</p>
+
+<p align="center">Equation 2: V<sub>MEAS</sub> = V<sub>TC</sub> (T<sub>TC</sub> – T<sub>ref</sub>)</p>
+
+<p align="center">&#160;</p>
+
+<p>You can rewrite Equation 2 as shown in Equation 3 where V<sub>TC</sub> (T<sub>TC</sub>) is the voltage measured by the thermocouple assuming a reference junction temperature of 0 °C, and V<sub>TC</sub> (T<sub>ref</sub>) is the voltage that would be generated by the same thermocouple at the current reference temperature assuming a reference junction of 0 °C:</p>
+
+<p>&#160;</p>
+
+<p align="center">Equation 3: V<sub>MEAS</sub> = V<sub>TC</sub> (T<sub>TC</sub> ) - V<sub>TC</sub> (T<sub>ref</sub> )</p>
+
+<p align="center">&#160;</p>
+
+<p align="center">Equation 4: V<sub>TC</sub> (T<sub>TC</sub>) = V<sub>MEAS</sub> + V<sub>TC</sub> (T<sub>ref</sub>)</p>
+
+<p>In Equation 4, the computed voltage of the thermocouple assumes a reference junction of 0 °C. Therefore, by measuring V<sub>MEAS</sub> and T<sub>ref</sub> , and knowing the voltage-to-temperature relationship of the thermocouple, you can determine the temperature at the primary junction of the thermocouple.<br />
+<br />
+There are two techniques for implementing CJC when the reference junction is measured with a direct-reading sensor: hardware compensation and software compensation. A direct-reading sensor has an output that depends on the temperature of the measurement point. Semiconductor sensors, thermistors, or RTDs are commonly used to measure the reference-junction temperature. For example, several National Instruments thermocouple measurement devices include high-accuracy thermistors located near the screw terminals where thermocouple wires are connected.<br />
+<br />
+With hardware compensation, a variable voltage source is inserted into the circuit to cancel the influence of the cold-junction temperature. The variable voltage source generates a compensation voltage according to the ambient temperature that allows the temperature to be computed assuming a constant value for V<sub>TC</sub> (T<sub>ref</sub>) in Equations 3 and 4. With hardware compensation, you do not need to know the temperature at the data acquisition system terminals when computing the temperature of the thermocouple. This simplifies the scaling equation. The major disadvantage of hardware compensation is that each thermocouple type must have a separate compensation circuit that can add the correct compensation voltage. This disadvantage results in additional expense in the circuit. Hardware compensation is often less accurate than software compensation.<br />
+<br />
+Alternatively, you can use software for CJC. After a direct-reading sensor measures the reference-junction temperature, software can add the appropriate voltage value to the measured voltage that compensates for the cold-junction temperature. Equation 3 states that the measured voltage, V<sub>MEAS</sub>, is equal to the difference between the voltages at the hot junction (thermocouple) and cold junction.</p>
+
+<p>Thermocouple output voltages are highly nonlinear; the Seebeck coefficient can vary by a factor of three or more over the operating temperature range of some thermocouples. Therefore, you must either approximate the thermocouple voltage-versus-temperature curve using polynomials, or use a look-up table. The polynomials are in the following form where v is the thermocouple voltage in volts, T is the temperature in degrees Celsius, and a<sub>0</sub> through a<sub>n</sub> are coefficients that are specific to each thermocouple type:</p>
+
+<p>&#160;</p>
+
+<p align="center">Equation 5: T = a<sub>0</sub> + a<sub>1</sub>v + a<sub>2</sub>v<sup>2</sup> + ... + a<sub>n</sub>v<sup>n</sup></p>
+
+<a name = "toc2"></a><h2>Considerations for Accurate Thermocouple Measurements</h2>
+
+<p>Thermocouple output signals are typically in the millivolt range, and generally have a very low temperature to voltage sensitivity, which means that you must pay careful attention to the sources of errors that can impact your measurement accuracy. The primary sources of errors for the thermocouple measurement to take into consideration are noise, offset and gain errors, cold-junction compensation (CJC) accuracy, and thermocouple errors.</p>
+
+<a name = "h30"></a><h3><u>CJC Errors</u></h3>
+
+<p>CJC errors represent the difference between the actual temperature at the point where the thermocouple is connected to the measurement device (the cold-junction temperature), and the measured temperature by the device. The CJC error is roughly a 1 to 1 contributor to the accuracy of the temperature measurement of the thermocouple, and is often one of the largest single contributors to the overall accuracy. The overall CJC error includes the error from the CJC temperature sensor (often a thermistor) used to sense the cold-junction temperature, the error from the device measuring the CJC sensor, and the temperature gradient between the cold-junction and the CJC sensor. Of these three errors, the temperature gradient between the cold-junction and the CJC sensor is generally the largest, and typically has the largest variation. The error from the CJC sensor can be a large contributor in many devices; however, high-accuracy thermistors or resistance temperature detectors (RTDs) with small errors are common in many high-end thermocouple measurement devices.</p>
+
+<p>The error from the temperature gradient between the cold-junction and the CJC sensor is where you generally have the most control. A well-designed thermocouple device can often minimize this error considerably; however, the magnitude of this error still often depends on the environment in which the thermocouple device is used. Because the error comes from the temperature difference between the cold-junction and the CJC sensor, anything that can introduce a temperature gradient in a thermocouple device influences this error. Maintaining your thermocouple device in a stable environment with minimal temperature variation and low air flow is the best way to improve CJC accuracy. Adjacent heat sources, such as other instruments, can also impact the CJC accuracy. Some devices have a single CJC sensor for many channels, while others may have multiple CJC sensors. As a general rule, devices with a low ratio of channels to CJC sensors are less susceptible to errors from temperature gradients. Refer to the device documentation for specifics about the CJC accuracy and other recommendations for improving the overall CJC accuracy.</p>
+
+<a name = "h31"></a><h3><u>Offset and Gain Errors</u></h3>
+
+<p>Because thermocouples often output signals very close to 0 V and have a full input range that is measured in millivolts, offset errors from the measurement device can be a large contributor to overall accuracy. Many devices support a built-in autozero function that measures the internal offset of the circuit automatically. If a device supports built-in autozero, this is often the best way to compensate for offset errors and offset drift in the measurement device. Read the device documentation to determine if autozero is supported. If autozero is not supported, pay careful attention to the contribution of offset error specification to the overall accuracy of the measurement device, and ensure that the device is regularly calibrated.</p>
+
+<p>&#160;</p>
+
+<p>Gain errors are proportional to the input voltage, so they generally have the largest impact when thermocouples are measuring temperatures at the edge of their supported range.</p>
+
+<a name = "h32"></a><h3><u>Noise Errors</u></h3>
+
+<p>Thermocouple output signals are typically in the millivolt range, making them susceptible to noise. Noise can be introduced either by the external environment or by the measurement device. Lowpass filters are commonly used in thermocouple data acquisition systems to effectively eliminate high-frequency noise in thermocouple measurements. For instance, lowpass filters are useful for removing the 50 and 60 Hz power line noise that is prevalent in many laboratory and manufacturing settings.</p>
+
+<p>For measurement devices with a large input range, you can also improve the noise performance of your system by amplifying the low-level thermocouple voltages near the signal source (measurement point) to match the output range of the thermocouples. Because thermocouple output voltage levels are very low, choose a gain or input range for the device that optimizes the input limits of the analog-to-digital converter (ADC). The output range of all thermocouple types falls between -10 mV and 80 mV.</p>
+
+<p>Another source of noise is due to thermocouples being mounted or soldered directly to a conductive material such as steel, or submerged in conductive liquids such as water. When connected to a conductive material, thermocouples are particularly susceptible to common-mode noise and ground loops. Isolation helps prevent ground loops from occurring, and can dramatically improve the rejection of common-mode noise. With conductive materials that have a large common-mode voltage, isolation is required as nonisolated amplifiers cannot measure signals with large common-mode voltages.</p>
+
+<a name = "h33"></a><h3><u>Thermocouple Errors</u></h3>
+
+<p style=" text-align: left;">These errors are introduced by the thermocouple. The voltage generated by the thermocouple is proportional to the temperature difference between the point where the temperature is measured and the point where it connects to the device. Temperature gradients across the thermocouple wire can introduce errors due to impurities in the metals, which can be large relative to most measurement devices. Refer to the thermocouple documentation to understand its accuracy impact to the overall measurement.</p>
+
+<p style=" text-align: left;">&#160;</p>
+
+<a name = "toc3"></a><h2><b>Connecting a Thermocouple to an Instrument</b></h2>
+
+<p>Thermocouple measurements are common but the application requirements can vary greatly. Therefore, National Instruments provides many options to measure temperature from one to 1,000+ channels. Read the <a href="http://zone.ni.com/devzone/cda/tut/p/id/10694">Advantages of NI Sensor Measurement Systems</a> white paper to learn about the different platforms for thermocouple measurements.</p>
+
+<p>Similar procedures apply for connecting a thermocouple to different instruments. For this section, consider an example using an <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207534">NI cDAQ-9178</a> or <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207535">NI cDAQ-9174</a> chassis and an <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/14165">NI 9211</a> or <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207150">NI 9213</a> C Series thermocouple module (shown in Figure 4).</p>
+
+<p>Required equipment includes the following:</p>
+
+<ul>
+<li><a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207534">NI cDAQ-9178</a> eight-slot or <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207535">NI cDAQ-9174</a> four-slot Hi-Speed USB chassis for NI CompactDAQ</li>
+
+<li><a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/14165">NI 9211</a> four-channel, 14 S/s, 24-bit, ±80 mV thermocouple input module</li>
+</ul>
+
+<p>Or</p>
+
+<ul>
+<li><a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/207150">NI 9213</a> sixteen-channel, 1200 S/s (aggregate), 24 bit, ±78 mV thermocouple input module</li>
+
+<li>Thermocouple (J, K, T, E, N, B, R, or S types)</li>
+</ul>
+
+<p align="center">&#160;</p>
+
+<p align="center"><img src="/cms/images/devzone/tut/9211-b1_with_9178-9174.PNG" alt="" /></p>
+
+<p align="center"><i><b>Figure 4. NI CompactDAQ System with NI 9211 or NI 9213 Thermocouple Module</b></i></p>
+
+<p>&#160;</p>
+
+<p>The <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/14165">NI 9211</a> has a 10-terminal, detachable screw-terminal connector that provides connections for four thermocouple input channels. Each channel has a terminal to which you can connect the positive lead of the thermocouple, TC+, and a terminal to which you can connect the negative lead of the thermocouple, TC–. The <a href="http://sine.ni.com/nips/cds/view/p/lang/en/nid/14165">NI 9211</a> also has a common terminal, COM, which is internally connected to the isolated ground reference of the module. Refer to Figure 5 for the terminal assignments for each channel.</p>
+
+<p>&#160;</p>
+
+<p align="center"><img src="/cms/images/devzone/tut/fvtvqtzc3494.jpg" height="322" border="0" width="323" alt="" /></p>
+
+<p align="center"><i><b>Figure 5. Terminal Assignments 9211</b></i></p>
+
+<p>For a higher channel count and faster sample rate, the NI 9213 features a 36 terminal detachable spring-terminal connector for 16 thermocouple connections. &#160;Refer to Figure 6 for the terminal assignments and Figure 7 for a sample connection schematic.</p>
+
+<p style=" text-align: center;"><img src="/cms/images/devzone/tut/terminal_assignments_9213.PNG" alt="" /></p>
+
+<p style=" text-align: center;"><i><b>Figure 6. Terminal Assignments NI 9213</b></i></p>
+
+<p style=" text-align: center;">&#160;</p>
+
+<p>&#160;</p>
+
+<p align="center"><img src="/cms/images/devzone/tut/connection_diagram_9213.PNG" alt="" /></p>
+
+<p align="center"><i>&#160;<b>Figure 7. Connection Schematic NI 9213 Module</b></i></p>
+
+<p align="center">&#160;</p>
+
+<a name = "toc4"></a><h2><b>Getting to See Your Measurement: NI LabVIEW</b></h2>
+
+<p>Now that you have connected your thermocouple to the measurement device, you can use LabVIEW graphical programming software to transfer the data into the computer for visualization and analysis.</p>
+
+<p>Figure 8 shows an example of displaying measured temperature data inside the LabVIEW programming environment.</p>
+
+<p>&#160;</p>
+
+<p align="center"><a href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/axhfxmdq3496.jpg&language=en','awindow','scrollbars=yes, resizable=yes');return false;"><img src="/cms/images/devzone/tut/axhfxmdq3496.jpg" width="525" border="0"></a><br><a class="enlarge_link" href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/axhfxmdq3496.jpg&language=en','awindow','scrollbars=yes,resizable=yes');return false;">[+] Enlarge Image</a><br />
+<i><b>Figure 8. LabVIEW Front Panel Showing Temperature Data</b></i></p>
+
+<p align="center">&#160;</p>
+
+<a name = "toc5"></a><h2><b>Recommended Hardware and Software</b></h2>
+
+<p align="left"><a href="http://www.ni.com/temperature/">Learn More about Measuring Temperature</a></p>
+
+<p align="left"><a href="http://ohm.ni.com/advisors/jsp/common/load/load.jsp?id=CD507848">Configure a Thermocouple Measurement System</a></p>
+
+<p align="left"><a href="http://www.ni.com/labview/whatis/">Learn about and test-drive LabVIEW software for free&#160;</a></p>
+
+<p align="left">&#160;</p>
+
+<a name = "toc6"></a><h2><b>Thermocouple Webcasts, Tutorials, and Other How-To Resources</b></h2>
+
+<p><a href="http://zone.ni.com/devzone/cda/tut/p/id/3778">Performing High-Accuracy Temperature Measurements Using an NI Digital Multimeter and Switch</a></p>
+
+<p><a href="http://sine.ni.com/tacs/app/overview/p/ap/of/id/1578/lang/en/">Learn About Relevant Training Options: &#160;Data Acquisition and Signal Conditioning</a></p>
+
+<p>&#160;</p>
+				
+
+<div class="noindex">
+
+
+				
+
+
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">15 ratings | <strong>3.40</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/7108">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7122">Chinese (Simplified)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7238">Chinese (Traditional)</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7245">French</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7305">German</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7293">Italian</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7148">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7204">Korean</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/7347">Spanish</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/7108&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+												
+			</div>
+</div>
+
+				
+
+				
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+				
+				
+
+
+
+
+
+<h3 class="comments">Reader Comments | <a href="http://zone.ni.com/apps/utf8/nidz_display_comments.create_comment?p_title=Temperature+Measurements+with+Thermocouples%3A+How-To+Guide&p_doc_id=a4d2472ca8dc8110VgnVCM200000a90aa482RCRD&p_doc_type=TUT&p_url=http://zone.ni.com/devzone/cda/tut/p/id/7108&p_doc_url_id=7108" rel="nofollow">Submit a comment</a> <span class="cta">&raquo;</span></h3>
+<p class="comments">
+
+	<strong>Colors in sample wiring diagram</strong><br>The yellow and red wire colors used in the
+example wiring diagram (here, and on several
+others) would suggest a K-type T/C, but the
+polarity is incorrect. The wire-types are
+labeled for a J-type T/C, however, so a white
+wire color for the (+) Fe lead, and a black
+wire for the (-) Cu-Ni lead would be less
+confusing.  Whether the example T/C is a type
+K or type J, the (+) lead should probably not
+be red, just to avoid confusion. <br>- <a href="mailto:king@jlab.org">king@jlab.org</a> - May 7, 2010
+	<br/><br/>
+	
+</p>
+<div class="dottedline">&nbsp;</div>
+
+
+
+<div class="noindex">
+				
+				<div class="legalnotice"><p><strong>Legal</strong><br />This tutorial (this "tutorial") was developed by National Instruments ("NI"). Although technical support of this tutorial may be made available by National Instruments, the content in this tutorial may not be completely tested and verified, and NI does not guarantee its quality in any way or that NI will continue to support this content with each new revision of related products and drivers.  THIS TUTORIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND SUBJECT TO CERTAIN RESTRICTIONS AS MORE SPECIFICALLY SET FORTH IN NI.COM'S TERMS OF USE (<a href="http://ni.com/legal/termsofuse/unitedstates/us/" rel="nofollow">http://ni.com/legal/termsofuse/unitedstates/us/</a>).</p></div>
+				
+				
+
+			</div>	
+		</div>
+	</div>
+<div class="noindex"> <div class="clearfloat">&nbsp;</div> </div>
+	</div>
+
+<div class="noindex">
+
+
+
+
+					</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="clearfloat">&nbsp;</div>
+	</div>
+	<div id="footer" class="noindex">
+		<a href="http://www.ni.com/profile/" rel="nofollow">My Profile</a> | <a href="http://www.ni.com/rss/" rel="nofollow">RSS</a> | <a href="http://www.ni.com/legal/privacy/unitedstates/us/" rel="nofollow">Privacy</a> | <a href="http://www.ni.com/legal/" rel="nofollow">Legal</a> | <a href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow">Contact NI</a> <span class="copyright">&copy; 2011 National Instruments Corporation.  All rights reserved.</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<script language="javascript" type="text/javascript">
+var subject = "Link to National Instruments Web Site";
+var bodytext = encodeURI(window.location.href); 
+document.write('<a href=\"mailto:?subject=' + subject + '&body=' + bodytext + '\">'); 
+document.write('<img src="/images/global/us/email.gif" border="0" alt="E-Mail this Page"> E-Mail this Page</a>');
+</script>
+	</div>
+</div>
+<script language="JavaScript" src="/javascript/analysis/us/tag-footer.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,860 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+<link rel="canonical" href="http://zone.ni.com/devzone/cda/tut/p/id/4084">
+<title>Signal Conditioning Fundamentals for Computer-Based Data Acquisition Systems - Developer Zone - National Instruments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<meta name="DCSext.DocType" content="NI_Supported"> 
+<meta name="Date" scheme="iso8601" content="2006-08-31T05:00:00">
+<meta name="UpdateDate" scheme="iso8601" content="2011-08-01T20:31:28">
+
+
+	
+	
+	
+
+
+
+<meta name="NiBoosts" content="UD:2011-08-01,RV:3.84,RN:130">
+<meta name="nigen16" content="3.84"> <!-- Rating -->
+
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d9f12be33ab9b64"></script>
+<link rel="stylesheet" type="text/css" href="/widgets/share/addthis/1.0/css/share.css" />
+<script src="/widgets/share/addthis/1.0/js/share.js" type="text/javascript" charset="utf-8"></script>
+
+<meta name="ContentClass" content="Technical">
+<meta name="ContentType" content="Tutorial">
+<meta name="Language" scheme="rfc3066" content="en">
+<meta name="Keywords" content="">
+<meta name="ShortTitle" content="Signal Conditioning Fundamentals for Computer-Based Data Acquisition Systems">
+<meta name="DocType" content="NI_Supported">
+<meta name="ProductCategories" content="258">
+<meta name="Description" content="Computer-based measurement systems are used in a wide variety of applications. In laboratories, in field services and on manufacturing plant floors, these systems act as general-pu...">
+
+<meta name="ContentFormat" content="VCM"> 
+<meta name="vcmGuid" content="b2906ce22d66d010VgnVCM100000940aa482RCRD">
+
+<meta name="section" content="DevZone"> 
+<meta name="nigen1" content=""> <!-- industry -->
+<meta name="nigen2" content="">  <!-- application -->
+<meta name="nigen3" content=""> <!-- developmentTopic -->
+<meta name="nigen4" content=""> <!-- Technology -->
+<meta name="nigen5" content=""> <!-- Hardware Family -->
+<meta name="nigen6" content=""> <!-- Application Software -->
+<meta name="nigen10" content="258"> <!-- All Product categories (For Tutorials it nigen10 =  ProductCategories  -->
+<meta name="nigen17" content=""> <!-- Download link -->
+	
+<meta name="nigen23" content="Tutorial"> <!-- Format classification -->
+
+
+<!-- JavaScript used in includeLanguageMenu.jsp & includeWarningBox. -->
+        <script language="javascript">
+            function changeLocale(locale) {
+                if(locale == '') return false;
+                if(locale == 'globalGateway') {
+					
+						location.href='http://sine.ni.com/nigwy/cds/globalgateway/p/lang/en?rtrn=http://zone.ni.com/devzone/cda/tut/p/id/4084';
+					
+                } else {
+                    location.href='http://sine.ni.com/nigwy/cds/setlocale?locale=' + locale + '&rtrn=http://zone.ni.com/devzone/cda/tut/p/id/4084';
+                }
+            }
+        </script>
+        
+        <!-- JavaScript used by language select dropdown control -->
+        <script>
+			function languageChanged(langSelect)
+			{					
+				var url = langSelect.value;
+				if (url && url != "")
+				{
+					window.location = url;
+				}
+			}
+		</script>
+
+<script type="text/javascript" src="http://www.ni.com/javascript/global/neutral/jquery.js"></script>
+<script src="/javascript/devzone_enlink/enlinkment.js"></script>
+<link href="/css/devzone_enlink/enlinkment.css" type="text/css" rel="stylesheet" >
+
+		
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/global/us/zone.css" media="screen, projection">
+<link rel="stylesheet" type="text/css" href="/css/global/us/zoneprint.css" media="print">
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<script language="javascript" type="text/javascript" src="/javascript/global/resistance_is_futile.js"></script>
+</head>
+<body>
+
+<a name="top"></a>
+<div id="wrapper">
+	<a href="http://www.ni.com/"><img src="/images/global/us/logo.gif" width="157" height="64" border="0" alt="NI Home" id="logo"></a>
+
+
+
+
+
+
+
+
+
+
+     <div id="search" class="noindex">
+          <!--NOTES_FORM_TAG1-->
+          <form name="search" action="http://search.ni.com/nisearch/app/main"><a href="http://sine.ni.com/apps/utf8/nios.store?action=view_cart" rel="nofollow"><img src="/images/global/neutral/cart.gif" alt="Cart" border="0"> Cart</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.ni.com/help/">Help</a>&nbsp;&nbsp; <input type="text" name="q" size="16" maxlength="254" value="Search" onclick="this.value='';" class="mainsearchinputbox">&nbsp;<input type="image" src="/images/global/neutral/cta_arrow.gif" class="topalign"></form>
+          <!--NOTES_FORM_TAG2-->
+     </div>
+
+
+
+
+
+	<div class="noindex">
+	<map name="globalnav"> 
+	<area shape="rect" alt="Academic" coords="557,0,627,20" href="http://www.ni.com/academic/"> 
+	<area shape="rect" alt="Company" coords="684,0,751,20" href="http://www.ni.com/company/"> 
+	<area shape="rect" alt="Events" coords="629,0,682,20" href="http://www.ni.com/events/"> 
+	<area shape="rect" alt="NI Developer Zone" coords="441,0,555,20" href="http://zone.ni.com/"> 
+	<area shape="rect" alt="Support" coords="378,0,439,20" href="http://www.ni.com/support/"> 
+	<area shape="rect" alt="Solutions" coords="307,0,376,20" href="http://www.ni.com/solutions/"> 
+	<area shape="rect" alt="Products & Services" coords="180,0,305,20" href="http://www.ni.com/products/"> 
+	<area shape="rect" alt="Contact NI" coords="91,0,179,20" href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow"> 
+	<area shape="rect" alt="MyNI" coords="0,0,90,20" href="http://my.ni.com/myni/myni" rel="nofollow"> 
+	</map>
+	</div>
+<script language="javascript" type="text/javascript" charset="utf-8" src="/javascript/global/neutral/headerWidget.js"></script>
+	<div id="headerWidgetOutput" class="noindex">
+		<script type="text/javascript" charset="utf-8" src="https://tesla.ni.com/niwcf/ss?w=-1199731387&pfx=headerWidget"></script>    
+	</div>
+	<div id="sitenavigation" class="noindex"><img src="/images/buttons/us/devzone1_on.gif" width="752" height="20" border="0" alt="" usemap="#globalnav" /></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="noindex">
+<div id="identity">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tr valign="middle">
+		  <td id="devzone"><a href="http://zone.ni.com/"><img src="/images/devzone/us/headers/logo.gif" width="180" height="25" alt="" border="0"></a></td>
+			<td id="whatsit"><a href="http://zone.ni.com/devzone/cda/tut/p/id/3802">What is Developer Zone?</a></td>
+			<td id="locale">
+        <!-- Begin Language Dropdown -->
+
+        <div id="localeselector">        <a href="" onClick="changeLocale('globalGateway');return false;"><strong>Select Your Country</strong></a></div>
+</td>
+	  </tr>
+	</table>
+</div>
+</div>
+
+
+
+	<div id="bodycontainer" class="document">
+
+		<div id="resources">
+<div class="noindex">
+			<div class="docbox">
+				<p>
+				<strong>Document Type</strong>: <a href="http://search.ni.com/nisearch/app/main/p/lang/en/pg/1/ap/tech/sn/catnav:tu,ssnav:dzn">Tutorial </a><br />
+				<strong>NI Supported</strong>: Yes <br />
+				
+				<strong>Publish Date</strong>: Aug 1, 2011 <br />
+												
+				</p>
+			</div>
+			<div id="flakes">
+			
+	            <div class="docbox">
+					<div class="social-share-wrapper">
+						<div class="addthis_toolbox addthis_default_style socialMedia-toolbar">
+							<a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=ra-4d9f12be33ab9b64" class="addthis_button_compact"></a>		
+							<a class="addthis_button_facebook"></a>
+							<a class="addthis_button_twitter"></a>
+							<a class="addthis_button_linkedin"></a>
+						</div>
+					</div>		
+				</div>
+				<br />
+	            
+					
+					
+					
+					
+					
+				
+
+
+
+
+
+				<h3>Feedback</h3>
+				<div class="docbox">
+					<form action="http://zone.ni.com/apps/utf8/nidz_ratings.submit_rating" method="GET" name="suppfeed">
+     					<input type="hidden" name="p_guid" value="b2906ce22d66d010VgnVCM100000940aa482RCRD">
+				    <input type="hidden" name="p_url" value="http://zone.ni.com/devzone/cda/tut/p/id/4084?submitted=yes">
+			     <input type="hidden" name="p_rating_type" value="TUT">
+
+					<label>Rate this document</label>
+					<select name="p_rank">
+					<option value="" selected>Select a Rating</option>
+					<option value="1">1- Poor</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5- Excellent</option>
+					</select>
+					<br />
+					<label>Answered Your Question?</label>
+					<input type="radio" name="p_answer" value="yes"> Yes <input type="radio" name="p_answer" value="no"> No<br />
+					<br />
+<a href="javascript:document.forms.suppfeed.submit()"><img src="/images/buttons/us/submit.gif" border="0"></a>
+					</form>
+				</div>
+
+								
+
+				
+				<h2>Related Categories</h2>
+				<div class="fnavbox">
+					
+					<p><strong>Products</strong></p>
+					<ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:11,ssnav:dzn">Signal Conditioning</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:11.68,ssnav:dzn">SCXI</a><ul><li><a href = "http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/n8:11.68.258,ssnav:dzn">SCXI Analog Input Modules</a><ul></ul></li></ul></li></ul></li></ul>			
+					
+								
+								
+					
+					
+				</div>
+				
+
+                	
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Developer Zone</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://zone.ni.com/devzone/cda/tut/p/id/3344'>Field Wiring and Noise Considerations for Analog Signals</a></li><br/><li><a href='http://zone.ni.com/devzone/cda/tut/p/id/3642'>Measuring Strain with Strain Gages</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+
+                
+			
+                  
+                  
+			
+			
+
+
+			<h2>Related Links - Products and Services</h2>
+				<div class="fnavbox">
+				<ul>
+				<li><a href='http://sine.ni.com/nips/cds/view/p/lang/en/nid/210183'>Previous Generation</a></li><br/><li><a href='http://sine.ni.com/nips/cds/view/p/lang/en/nid/210166'>GigE Vision</a></li><br/>
+				</ul>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+</div>
+
+		<div id="primarycontentcontainer">
+<div class="noindex">	
+			
+			<h1>Signal Conditioning Fundamentals for Computer-Based Data Acquisition Systems</h1>
+		
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">130 ratings | <strong>3.84</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/4084">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10664">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/5922">Spanish</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+			
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/4084&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+					
+				
+			</div>			
+</div>
+			<div id="pagearea">
+
+			
+		<div class="noindex">	<h3>Overview</h3></div>
+			<p>
+
+
+
+Computer-based measurement systems are used in a wide variety of applications. In laboratories, in field services and on manufacturing plant floors, these systems act as general-purpose measurement tools well suited for measuring voltage signals. However, many real-world sensors and transducers require signal conditioning before a computer-based measurement system can effectively and accurately acquire the signal. The front-end signal conditioning system can include functions such as signal amplification, attenuation, filtering, electrical isolation, simultaneous sampling, and multiplexing. In addition, many transducers require excitation currents or voltages, bridge completion, linearization, or high amplification for proper and accurate operation. Therefore, most computer-based measurement systems include some form of signal conditioning in addition to plug-in data acquisition DAQ devices, as shown in Figure 1.<br>
+<br>
+This application note introduces the fundamentals of using front-end signal conditioning hardware with computer-based measurement systems. First, the signal conditioning requirements of the most common transducers are discussed. This application note also describes some general signal conditioning functions and briefly discusses the role of signal conditioning products such as the National Instruments Signal Conditioning eXtension for Instrumentation (SCXI) or Signal Conditioning Components (SCC) product lines.<br>
+
+<br></p>
+			
+
+<div class="noindex">
+			<h3>Table of Contents</h3><ol><li><a href="#toc0">Transducers</a></li><li><a href="#toc1">General Signal Conditioning Functions</a></li><li><a href="#toc2">Signal Conditioning Systems</a></li><li><a href="#toc3">Conclusion</a></li></ol>
+</div>
+
+				
+				<a name = "toc0"></a><h2>Transducers</a><br />
+</h2>
+
+<p><br />
+Transducers are devices that convert one type of physical phenomenon, such as temperature, strain, pressure, or light into another. The most common transducers convert physical quantities to electrical quantities, such as voltage or resistance. Transducer characteristics define many of the signal conditioning requirements of your measurement system. Table 1 summarizes the basic characteristics and conditioning requirements of some common transducers.</p>
+
+<div align="center"><br />
+<a href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/a/b2906ce2424.gif&language=en','awindow','scrollbars=yes, resizable=yes');return false;"><img src="/cms/images/devzone/tut/a/b2906ce2424.gif" width="525" border="0"></a><br><a class="enlarge_link" href="" onclick="window.open('http://zone.ni.com/devzone/jsp/largeImage.jsp?imagename=/cms/images/devzone/tut/a/b2906ce2424.gif&language=en','awindow','scrollbars=yes,resizable=yes');return false;">[+] Enlarge Image</a><br />
+<b>Figure 1.</b> Signal conditioning is an important component of a PC-based DAQ system.</div>
+
+<p><br />
+</p>
+
+<div align="center"><b>Table 1.</b> Electrical Characteristics and Basic Signal Conditioning Requirements of Common Transducers<br />
+</div>
+
+<p><br />
+</p>
+
+<div align="center">
+<table border="1">
+<tr valign="top">
+<td width="136">
+<div align="center"><b>Sensor</b></div>
+</td>
+<td width="211">
+<div align="center"><b>Electrical Characteristics</b></div>
+</td>
+<td width="211">
+<div align="center"><b>Signal Conditioning Requirement</b></div>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="136">Thermocouple</td>
+<td width="211">Low-voltage output<br />
+Low sensitivity<br />
+Nonlinear output</td>
+<td width="211">Reference temperature sensor (for cold-junction compensation)<br />
+High amplification<br />
+Linearization</td>
+</tr>
+
+<tr valign="top">
+<td width="136">RTD</td>
+<td width="211">Low resistance (100 ohms typical)<br />
+Low sensitivity<br />
+Nonlinear output</td>
+<td width="211">Current excitation<br />
+Four-wire/three-wire configuration<br />
+Linearization</td>
+</tr>
+
+<tr valign="top">
+<td width="136">Strain gauge</td>
+<td width="211">Low resistance device<br />
+Low sensitivity<br />
+Nonlinear output</td>
+<td width="211">Voltage or current excitation<br />
+High amplification<br />
+Bridge completion<br />
+Linearization<br />
+Shunt calibration</td>
+</tr>
+
+<tr valign="top">
+<td width="136">Current output device</td>
+<td width="211">Current loop output (4 -- 20 mA typical)</td>
+<td width="211">Precision resistor</td>
+</tr>
+
+<tr valign="top">
+<td width="136">Thermistor</td>
+<td width="211">Resistive device<br />
+High resistance and sensitivity<br />
+Very nonlinear output</td>
+<td width="211">Current excitation or voltage excitation with reference resistor<br />
+Linearization</td>
+</tr>
+
+<tr valign="top">
+<td width="136">Active Accelerometers</td>
+<td width="211">High-level voltage or current output<br />
+Linear output</td>
+<td width="211">Power source<br />
+Moderate amplification</td>
+</tr>
+
+<tr valign="top">
+<td width="136">AC Linear Variable Differential Transformer (LVDT)</td>
+<td width="211">AC voltage output</td>
+<td width="211">AC excitation<br />
+Demodulation<br />
+Linearization</td>
+</tr>
+</table>
+</div>
+
+<p><br />
+<b>Thermocouples</b><br />
+The most popular transducer for measuring temperature is the <i>thermocouple</i>. The thermocouple is an inexpensive, rugged device that can operate over a very wide range of temperatures. However, the thermocouple has unique signal conditioning requirements.<br />
+<br />
+A thermocouple operates on the principle that the junction of two dissimilar metals generates a voltage that varies with temperature. Measuring this voltage is difficult because connecting the thermocouple to the terminals of a DAQ board creates what is called the <i>reference junction</i> or <i>cold junction</i>, shown in Figure 2. These additional junctions act as<br />
+<br />
+thermocouples themselves and produce their own voltages. Thus, the final measured voltage, V<sub>MEAS</sub>, includes both the thermocouple and cold junction voltages. The method used to compensate for these unwanted cold-junction voltages is called <i>cold-junction compensation</i>.</p>
+
+<div align="center"><img width="454" alt="" src="/cms/images/devzone/tut/a/b2906ce2425.gif" height="264" /><br />
+<b>Figure 2.</b> The connection of thermocouple wires to a measurement system creates an additional thermoelectric junction, called the cold junction, which must be compensated for with signal conditioning.</div>
+
+<p><br />
+There are two general approaches to cold-junction compensation -- hardware and software compensation. Hardware compensation uses a special circuit that applies the appropriate voltage to cancel the cold-junction voltage. Although you need no software for hardware compensation, each thermocouple type must have its own compensation circuit that works at all ambient temperatures.<br />
+<br />
+Cold-junction compensation in software, on the other hand, is very flexible and requires only knowing the ambient temperature. If you use an additional sensor to directly measure the ambient temperature at the cold junction, you can compute the appropriate compensation for the unwanted thermoelectric voltages. This approach is why many signal conditioning accessories are equipped with direct-reading temperature sensors, such as thermistors or semiconductor sensors. Software cold-junction compensation follows this process:<br />
+<br />
+1. Measure the temperature of the reference junction and compute the equivalent thermocouple voltage for this junction using standard thermocouple tables or polynomials.<br />
+<br />
+2. Measure the output voltage (V<sub>MEAS</sub>) and add -- not subtract -- the reference-junction voltage computed in Step 1.<br />
+<br />
+3. Convert the resulting voltage to temperature using standard thermocouple polynomials or look-up tables.<br />
+<br />
+Sensitivity is another characteristic to consider with thermocouple measurements. Thermocouple outputs are very low level and change only 7 to 50 µV for every 1 °C change in temperature. You can increase the sensitivity of the system with a low-noise, high-gain amplification of the signal. For example, a plug-in DAQ board with an analog input range of ±5 V, an amplifier gain of 100, and a 12-bit analog-to-digital converter (ADC) has the following resolution:</p>
+
+<div align="center"><img width="174" alt="" src="/cms/images/devzone/tut/a/b2906ce2426.gif" height="45" /></div>
+
+<p>The same DAQ board with a signal conditioning amplifier gain of 1000 has a resolution of 2.4 µV/bit, which corresponds to a fraction of a degree Celsius. More importantly, an external signal conditioner can amplify the low-level thermocouple signal near the source to minimize noise corruption. A high-level amplified signal suffers much less corruption from radiated noise in the environment.<br />
+<br />
+<b>RTDs</b><br />
+Another popular temperature sensing device is the RTD, which is known for its stability and accuracy over a wide temperature range. An RTD consists of a wire coil or deposited film of pure metal whose resistance increases with temperature. Although different types of RTDs are available the most popular type is made of platinum and has a nominal resistance of 100 ohms at 0 °C.<br />
+<br />
+Because RTDs are passive resistive devices, you must pass a current through the RTD to produce a voltage that a DAQ board can measure. RTDs have relatively low resistance (100 ohms) that changes only slightly with temperature (less than 0.4 ohms/°C), so you might need to use special configurations that minimize errors from lead wire resistance.<br />
+<br />
+For example, consider the measurement of a 2-wire RTD in Figure 3. With this RTD, labeled R<sub>T</sub>, the voltage drops caused by the excitation current, I<sub>EXC</sub>, passing through the lead resistance, R<sub>L</sub>, add to the measured voltage, V<sub>O</sub>.</p>
+
+<div align="center"><img width="210" alt="" src="/cms/images/devzone/tut/a/b2906ce2427.gif" height="163" /><br />
+<b>Figure 3.</b> 2-Wire RTD Measurement</div>
+
+<p><br />
+For longer lead length, the 4-wire RTD in Figure 4 is a better choice. With a 4-wire RTD, one pair of wires carries the excitation current through the RTD; the other pair senses the voltage across the RTD. Because only negligible current flows through the sensing wires, the lead resistance error is very small.</p>
+
+<div align="center"><img width="214" alt="" src="/cms/images/devzone/tut/a/b2906ce2428.gif" height="197" /><br />
+<b>Figure 4.</b> 4-Wire RTD Measurement</div>
+
+<p><br />
+To keep costs down, RTDs are also available in 3-wire configurations. The 3-wire RTD is most effective in a Wheatstone bridge configuration (see the following <i>Strain Gauges</i> section). In this configuration, the lead resistances are located in opposite arms of the bridge, so their errors cancel each other out.<br />
+<br />
+<b>Strain Gauges</b><br />
+The strain gauge is the most common device used in mechanical testing and measurements. The most common type is the bonded resistance strain gauge, which consists of a grid of very fine foil or wire. The electrical resistance of the grid varies linearly with the strain applied to the device. When using a strain gauge, you bond the strain gauge to the device under test, apply force, and measure the strain by detecting changes in resistance. Strain gauges are also used in sensors that detect force or other derived quantities, such as acceleration, pressure, and vibration. These sensors generally contain a pressure sensitive diaphragm with strain gauges mounted to the diaphragm.<br />
+<br />
+Because strain measurement requires detecting relatively small changes in resistance, the Wheatstone bridge circuit is almost always used. The Wheatstone bridge circuit consists of four resistive elements with a voltage excitation supply applied to the ends of the bridge. Strain gauges can occupy one, two or four arms of the bridge, with any remaining positions filled with fixed resistors. Figure 5 shows a configuration with a half-bridge strain gauge consisting of two strain gauge elements, R<sub>G1</sub> and R<sub>G2</sub>, combined with two fixed resistors, R<sub>1</sub> and R<sub>2</sub>.</p>
+
+<div align="center"><img width="367" alt="" src="/cms/images/devzone/tut/a/b2906ce2429.gif" height="159" /><br />
+<b>Figure 5.</b> Half-Bridge Strain Gauge Configuration</div>
+
+<p><br />
+With a voltage, V<sub>EXC</sub>, powering the bridge the DAQ system measures the voltage across the bridge:</p>
+
+<div align="center"><img width="238" alt="" src="/cms/images/devzone/tut/a/b2906ce2430.gif" height="49" /></div>
+
+<p>When the ratio of R<sub>G1</sub> to R<sub>G2</sub> equals the ratio of R<sub>1</sub> to R<sub>2</sub>, the measured voltage V<sub>O</sub> is 0 V. This condition is referred to as a balanced bridge. As strain is applied to the gauge, their resistance values change, causing a change in the voltage at V<sub>O</sub>. Full-bridge and half bridge strain gauges are designed to maximize sensitivity by arranging the strain gauge elements in opposing directions.<br />
+<br />
+For example, the half-bridge strain gauge in Figure 5 includes an element R<sub>G1</sub>, which is installed so that its resistance increases with positive strain, and an element R<sub>G2</sub>, whose resistance decreases with positive strain. The resulting V<sub>O</sub> responds with a sensitivity that is twice that of a quarter-bridge configuration.<br />
+<br />
+Some signal conditioning products have voltage excitation sources, as well as provisions for bridge-completion resistors. Bridge completion resistors should be very precise and stable. Because strain-gauge bridges are rarely perfectly balanced, some signal conditioning systems also perform nulling. Nulling is a process in which you adjust the resistance ratio of the unstrained bridge to balance the bridge and remove any initial DC offset voltage. Alternatively, you can measure this initial offset voltage and use this measurement in your conversion routines to compensate for unbalanced initial condition.<br />
+<br />
+<b>Accelerometers</b><br />
+An accelerometer is a device commonly used to measure acceleration and vibration. It consists of a known mass attached to a piezoelectric element. As the accelerometer moves, the mass applies force to the element and generates a charge. By reading this charge, you can determine acceleration. Accelerometers are directional, measuring acceleration along only one axis. To monitor acceleration in three dimensions, choose a multi-axis accelerometer.<br />
+<br />
+Accelerometers are available in two types, passive and active. Passive accelerometers send out the charge generated by the piezoelectric element. Because the signal is very small, passive accelerometers require a charge amplifier to boost the signal and serve as a very high impedance buffer for your measurement device. Active accelerometers include internal circuitry to convert the accelerometer charge into a voltage signal, but require a constant current source to drive the circuitry.<br />
+<br />
+<b>LVDTs</b><br />
+A linear voltage differential transformer (LVDT) is a device commonly used to measure linear displacement. An LVDT consists of a stationary coil assembly and a movable core (see Figure 6). The coil assembly houses a primary and two secondary windings. The core is a steel rod of high magnetic permeability, and is smaller in diameter than the internal bore of the coil assembly, so you can mount the rod and assure that no contact is made with the coil assembly. Thus the rod can move back and forth without friction or wear.<br />
+<br />
+When an AC excitation voltage is applied to the primary winding, a voltage is induced in each secondary winding through the magnetic core. The position of the core determines how strongly the excitation signal couples to each secondary winding. When the core is in the center, the voltage of each secondary coil is equal and 180 degrees out of phase, resulting in no signal. As the core travels to the left of center, the primary coil is more tightly coupled to the left secondary coil, creating an output signal in phase with the excitation signal. As the core travels to the right of center, the primary coil is more tightly coupled to the right secondary coil, creating an output signal 180 degrees out of phase with the excitation voltage.</p>
+
+<div align="center"><img width="368" alt="" src="/cms/images/devzone/tut/a/b2906ce2431.gif" height="288" /><br />
+<b>Figure 6.</b> Cross Section of an LVDT</div>
+
+<p><br />
+<b>Current Signals</b><br />
+Many sensors used in process control and monitoring applications generate a current signal, usually 4 to 20 mA or 0 to 20 mA. Current signals are sometimes used because they are less sensitive to errors such as radiated noise and voltage drops due to lead resistance. Signal conditioning systems must convert this current signal to a voltage signal. To do this easily, pass the current signal through a resistor, as shown in Figure 7.</p>
+
+<div align="center"><img width="298" alt="" src="/cms/images/devzone/tut/a/b2906ce2432.gif" height="162" /><br />
+<b>Figure 7.</b> Process current signals, usually 0 to 20 mA or 4 to 20 mA, are converted to voltage signals using precision resistors.</div>
+
+<p><br />
+You can then use a DAQ system to measure the voltage V<sub>O</sub> = I<sub>S</sub>R that will be generated across the resistor, where I<sub>S</sub> is the current and R is the resistance. Select a resistor value that has a usable range of voltages, and use a high-precision resistor with a low temperature coefficient. For example, a 249 ohm, 0.1%, 5 ppm/°C resistor, converts a 4 to 20 mA current signal into a voltage signal that varies from 0.996 to 4.98 V.</p>
+
+<a name = "toc1"></a><h2>General Signal Conditioning Functions</a><br />
+</h2>
+
+<p><br />
+<br />
+Regardless of the types of sensors or transducers you are using, the proper signal conditioning equipment can improve the quality and performance of your system. Signal conditioning functions are useful for all types of signals, including amplification, filtering, and isolation.<br />
+<br />
+<b>Amplification</b><br />
+Because real-world signals are often very small in magnitude, signal conditioning can improve the accuracy of your data. Amplifiers boost the level of the input signal to better match the range of the analog-to-digital converter (ADC), thus increasing the resolution and sensitivity of the measurement. While many DAQ devices include onboard amplifiers for this reason, many transducers, such a thermocouples, require additional amplification.<br />
+<br />
+In addition, using external signal conditioners located closer to the signal source, or transducer, improves the signal-to-noise ratio of the measurement by boosting the signal level before it is affected by environmental noise.<br />
+<br />
+<b>Attenuation</b><br />
+Attenuation is the opposite of amplification. It is necessary when the voltages to be digitized are beyond the input range of the digitizer. This form of signal conditioning diminishes the amplitude of the input signal so that the conditioned signal is within range of the ADC. Attenuation is necessary for measuring high voltages.<br />
+<br />
+<b>Filtering</b><br />
+Additionally, signal conditioners can include filters to reject unwanted noise within a certain frequency range. Almost all DAQ applications are subject to some level of 50 or 60 Hz noise picked up from power lines or machinery. Therefore, most conditioners include lowpass filters designed specifically to provide maximum rejection of 50 to 60Hz noise.<br />
+<br />
+Another common use of filters is to prevent signal aliasing -- a phenomenon that arises when a signal is undersampled (sampled too slowly). The Nyquist theorem states that when you sample an analog signal, any signal components at frequencies greater than one-half the sampling frequency appear in the sampled data as a lower frequency signal. You can avoid this signal distortion only by removing any signal components above one-half the sampling frequency with lowpass filters before the signal is sampled.<br />
+<br />
+<b>Isolation</b><br />
+Improper grounding of the system is one of the most common causes for measurement problems, including noise and damaged measurement devices. Signal conditioners with isolation can prevent most of these problems. Such devices pass the signal from its source to the measurement device without a physical connection by using transformer, optical, or capacitive coupling techniques. Besides breaking ground loops, isolation blocks high-voltage surges and rejects high common-mode voltage and thus protects both the operators and expensive measurement equipment.<br />
+<br />
+<b>Multiplexing</b><br />
+Typically, the digitizer is the most expensive part of a <a href="http://ni.com/dataacquisition">data acquisition</a> system. By multiplexing, you can sequentially route a number of signals into a single digitizer, thus achieving a cost-effective way to greatly expand the signal count of your system. Multiplexing is necessary for any high-channel-count application.<br />
+<br />
+<b>Simultaneous Sampling</b><br />
+When it is critical to measure two or more signals at the same instant in time, simultaneous sampling is required. Front-end signal conditioning can provide a much more cost-effective simultaneous sampling solution than purchasing a digitizer for each channel. Typical applications that might require simultaneous sampling include vibration measurements and phase difference measurements.<br />
+<br />
+<b>Digital Signal Conditioning</b><br />
+Digital signals can also require signal conditioning peripherals. Typically, you should not connect digital signals used in research and industrial environments directly to a DAQ board without some type of isolation because of the possibility of large voltage spikes or large common voltages. Some signal conditioning modules and boards optically isolate the digital I/O signals to remove these spurious signals. Digital I/O signals can control electromechanical or solid-state relays to switch loads such as solenoids, lights, and motors. You can also use solid-state relays to sense high-voltage field signals and convert them to digital signals.</p>
+
+<a name = "toc2"></a><h2>Signal Conditioning Systems</a><br />
+</h2>
+
+<p><br />
+<br />
+The signal conditioning functions discussed in this application note are implemented in different types of signal conditioning products. These products cover a very wide range of price and capability.<br />
+<br />
+<b>SCXI</b><br />
+SCXI is a front-end signal conditioning and switching system for various measurement devices, including plug-in data acquisition and DMM devices. An SCXI system consists of a rugged chassis that houses shielded signal conditioning modules that amplify, filter, isolate, and multiplex analog signals from thermocouples or other transducers. SCXI is designed for large measurement systems or systems requiring high-speed acquisition.<br />
+<br />
+System features include:</p>
+
+<ul>
+<li type="disc">Modular architecture -- choose your measurement technology</li>
+
+<li type="disc">Expandability -- expand your system to 3,072 channels</li>
+
+<li type="disc">Integration -- combine analog input, analog output, digital I/O, and switching into a single, unified platform</li>
+
+<li type="disc">High bandwidth -- acquire signals at an aggregate rate up to 333 kHz</li>
+
+<li type="disc">Connectivity -- select from SCXI modules with thermocouple connectors or terminal blocks</li>
+</ul>
+
+<p>For complete information about the SCXI product line, please visit <a href="http://www.ni.com/signalconditioning/">NI's Signal Conditioning</a>.<br />
+<br />
+<b>SCC</b><br />
+SCC is a front-end signal conditioning system for E Series plug-in data acquisition devices. An SCC system consists of a shielded carrier that holds up to 20 single or dual-channel SCC modules for conditioning thermocouples and other transducers. SCC is designed for small measurement systems where you need only a few channels of each signal type, or for portable applications. SCC systems also offer the most comprehensive and flexible signal connectivity options.<br />
+<br />
+System features include:</p>
+
+<ul>
+<li type="disc">Modular architecture -- select your measurement technology on a per-channel basis</li>
+
+<li type="disc">Small-channel systems -- condition up to 16 analog input and eight digital I/O lines</li>
+
+<li type="disc">Low-profile/portable -- integrates well with other laptop computer measurement technologies</li>
+
+<li type="disc">High bandwidth -- acquire signals at rates up to 1.25 MHz</li>
+
+<li type="disc">Connectivity -- incorporates panelette technology to offer custom connectivity to thermocouple, BNC, LEMO®(B Series), and MIL-Spec connectors</li>
+</ul>
+
+<p>For complete information about the SCC product line, visit <a href="http://www.ni.com/signalconditioning/">NI's Signal Conditioning</a>.<br />
+<br />
+<b>5B Series</b><br />
+5B is a front-end signal conditioning system for plug-in data acquisition devices. A 5B system consists of eight or 16 single-channel modules that plug into a backplane for conditioning thermocouples and other analog signals. National Instruments offers a complete line of 5B modules, carriers, backplanes, and accessories. For more information, visit <a href="http://www.ni.com/signalconditioning/">NI's Signal Conditioning</a>.<br />
+<br />
+<b>FieldPoint</b><br />
+<br />
+FieldPoint is a distributed measurement system for monitoring or controlling signals in light industrial applications. A FieldPoint system includes a serial or Ethernet network module and up to nine I/O modules in a bank. Each I/O module can measure eight or 16 channels. FieldPoint is designed for applications with small clusters of I/O points at several different locations. FieldPoint is also an attractive solution for cost-sensitive applications performing low-speed monitoring.<br />
+<br />
+System features include:</p>
+
+<ul>
+<li type="disc">Modular architecture -- select your measurement technology on a per-module basis</li>
+
+<li type="disc">Expandability -- network multiple banks to a single system</li>
+
+<li type="disc">Integration -- combine analog input, analog output, digital I/O, and switching into a single, unified platform</li>
+
+<li type="disc">Low-speed monitoring -- up to 100 Hz</li>
+
+<li type="disc">Light-industrial grade -- 70 °C temperature range, hot-swappable, programmable start-up states, watchdog timers.</li>
+</ul>
+
+<p>For complete information about the FieldPoint product line, please visit <a href="http://sine.ni.com/np/app/main/p/ap/imc/lang/en/pg/1/sn/n24:cFP/">ni.com/fieldpoint</a>.</p>
+
+<blockquote><span class="title3">See Also:</span><br />
+<a href="http://www.ni.com/signalconditioning/">Signal Conditioning Product Line Information</a><br />
+</blockquote>
+
+<a name = "toc3"></a><h2>Conclusion</a><br />
+</h2>
+
+<p><br />
+<br />
+Signal conditioning is an important component of any complete measurement system. No matter which sensor you are using, signal conditioning can improve the accuracy, effectiveness, and safety of your measurements because of capabilities such amplifications, isolation, and filtering. National Instruments can supply you with the signal conditioning and instrumentation front-end solution you need for accurate measurements.<br />
+</p>
+				
+
+<div class="noindex">
+
+
+				
+
+
+			<div class="docdetails">
+
+				
+					  
+					  
+				      
+				
+
+
+
+<div class="ratings">130 ratings | <strong>3.84</strong> out of 5</div>
+
+
+
+				<!-- Read in other language section -->	
+							
+				<strong>Read in </strong>
+				<select onchange="languageChanged(this)">
+					<option value="http://zone.ni.com/devzone/cda/tut/p/id/4084">English</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/10664">Japanese</option>
+					
+						<option value="http://zone.ni.com/devzone/cda/tut/p/id/5922">Spanish</option>
+					
+				</select>
+				| 
+				
+				
+				<a href="javascript:window.print()"><img src="/images/global/us/icons/print.gif" width="18" height="13" alt="" border="0" class="bottomalign"> Print</a>
+
+				
+				| <a href="http://sine.ni.com/nipdfgenerator/nipdfgenerator?pageURL=http://zone.ni.com/devzone/cda/tut/p/id/4084&amp;clientAppName=dz&amp;dotsPerPixel=&amp;dotsPerPoint="><img src="/images/global/us/icons/pdf.gif" width="16" height="16" alt="" border="0" class="bottomalign"> PDF</a>
+												
+			</div>
+</div>
+
+				
+
+				
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+	                  
+				
+				
+
+
+
+
+
+<h3 class="comments">Reader Comments | <a href="http://zone.ni.com/apps/utf8/nidz_display_comments.create_comment?p_title=Signal+Conditioning+Fundamentals+for+Computer-Based+Data+Acquisition+Systems&p_doc_id=b2906ce22d66d010VgnVCM100000940aa482RCRD&p_doc_type=TUT&p_url=http://zone.ni.com/devzone/cda/tut/p/id/4084&p_doc_url_id=4084" rel="nofollow">Submit a comment</a> <span class="cta">&raquo;</span></h3>
+<p class="comments">
+
+	Thank you very much, it was soooooooooooooo
+helpful<br>- <em>Jimi Ogunsanya</em> - Nov 1, 2010
+	<br/><br/>
+	
+	very useful info thanks NI<br>- Sep 4, 2010
+	<br/><br/>
+	
+	Good explanation, but what about 
+software. When connected  signal to the 
+signal conditioning after that what? 
+There are an special requirement, 
+software?<br>- <em>Patricio, fas. </em><a href="mailto:anon5062287">anon5062287</a> - Jan 16, 2009
+	<br/><br/>
+	
+	The voltage output of a thermocouple is NOT
+generated at itsjunctions. It is developed
+where the thermocouple wires experiences a
+temperature gradient. It is sad to see NI
+perpetuate this measurement myth because it
+misleads people who experience inconsistent
+readings or believe they are making valid
+calibrations of thermocouple devices.<br>- <em>Karl Anderson, Valid Measuremennts. </em><a href="mailto:karl@vm-usa.com">karl@vm-usa.com</a> - Apr 30, 2007
+	<br/><br/>
+	
+	The voltage output of a thermocouple is NOT
+generated at itsjunctions. It is developed
+where the thermocouple wires experiences a
+temperature gradient. It is sad to see NI
+perpetuate this measurement myth because it
+misleads people who experience inconsistent
+readings or believe they are making valid
+calibrations of thermocouple devices.<br>- <em>Karl Anderson, Valid Measuremennts. </em><a href="mailto:karl@vm-usa.com">karl@vm-usa.com</a> - Apr 26, 2007
+	<br/><br/>
+	
+	<strong>Thank You</strong><br>Good website.  Explainations are 
+simple, practical, and insightful.  There 
+were several things I learned which I 
+was not taught in school.  <br>- Nov 1, 2006
+	<br/><br/>
+	
+</p>
+<div class="dottedline">&nbsp;</div>
+
+
+
+<div class="noindex">
+				
+				<div class="legalnotice"><p><strong>Legal</strong><br />This tutorial (this "tutorial") was developed by National Instruments ("NI"). Although technical support of this tutorial may be made available by National Instruments, the content in this tutorial may not be completely tested and verified, and NI does not guarantee its quality in any way or that NI will continue to support this content with each new revision of related products and drivers.  THIS TUTORIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND SUBJECT TO CERTAIN RESTRICTIONS AS MORE SPECIFICALLY SET FORTH IN NI.COM'S TERMS OF USE (<a href="http://ni.com/legal/termsofuse/unitedstates/us/" rel="nofollow">http://ni.com/legal/termsofuse/unitedstates/us/</a>).</p></div>
+				
+				
+
+			</div>	
+		</div>
+	</div>
+<div class="noindex"> <div class="clearfloat">&nbsp;</div> </div>
+	</div>
+
+<div class="noindex">
+
+
+
+
+					</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="clearfloat">&nbsp;</div>
+	</div>
+	<div id="footer" class="noindex">
+		<a href="http://www.ni.com/profile/" rel="nofollow">My Profile</a> | <a href="http://www.ni.com/rss/" rel="nofollow">RSS</a> | <a href="http://www.ni.com/legal/privacy/unitedstates/us/" rel="nofollow">Privacy</a> | <a href="http://www.ni.com/legal/" rel="nofollow">Legal</a> | <a href="http://sine.ni.com/apps/utf8/nicc.call_me" rel="nofollow">Contact NI</a> <span class="copyright">&copy; 2011 National Instruments Corporation.  All rights reserved.</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<script language="javascript" type="text/javascript">
+var subject = "Link to National Instruments Web Site";
+var bodytext = encodeURI(window.location.href); 
+document.write('<a href=\"mailto:?subject=' + subject + '&body=' + bodytext + '\">'); 
+document.write('<img src="/images/global/us/email.gif" border="0" alt="E-Mail this Page"> E-Mail this Page</a>');
+</script>
+	</div>
+</div>
+<script language="JavaScript" src="/javascript/analysis/us/tag-footer.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
+
